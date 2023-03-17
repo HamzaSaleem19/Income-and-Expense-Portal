@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Income_and_Expense.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using TestIdentitiy.Data;
 
 namespace Income_and_Expense.Data
 {
@@ -13,5 +10,10 @@ namespace Income_and_Expense.Data
             : base(options)
         {
         }
+        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Groups> Groupss { get; set; } 
+        public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<ManageExpense> ManageExpenses { get; set; }
+
     }
 }
