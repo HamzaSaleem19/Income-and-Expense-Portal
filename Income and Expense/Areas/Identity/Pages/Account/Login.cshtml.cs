@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Income_and_Expense.Areas.Identity.Pages.Account
 {
@@ -72,25 +73,26 @@ namespace Income_and_Expense.Areas.Identity.Pages.Account
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+
         {
 
             returnUrl = returnUrl == null || returnUrl == "/" ? Url.Content("~/") : returnUrl;
 
             if (ModelState.IsValid)
             {
-                //await _signInManager.SignInAsync(await _userManager.FindByNameAsync(Input.Email), false);
+                //await signInManager.SignInAsync(await userManager.FindByNameAsync(Input.Email), false);
                 //return LocalRedirect(returnUrl);
 
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
 
-//#if DEBUG
-//                var user1 = await _userManager.FindByNameAsync(Input.Email.ToLower());
-//                await _signInManager.SignInAsync(user1, true);
-//                await userCacheService.SetSessionTime(Input.Email, DateTime.UtcNow);
-//                return Redirect(returnUrl);
-//#endif
+#if DEBUG
+                //var user1 = await _userManager.FindByNameAsync(Input.Email.ToLower());
+                //await _signInManager.SignInAsync(user1, true);
+                //// await userCacheService.SetSessionTime(Input.Email, DateTime.UtcNow);
+                //return Redirect(returnUrl);
+#endif
 
                 var userTemp = await _userManager.FindByNameAsync(Input.Email.ToLower());
                 if (userTemp == null)
