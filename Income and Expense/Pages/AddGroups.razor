@@ -1,0 +1,47 @@
+﻿@page "/AddGroup"
+@using Income_and_Expense.Services
+@inject GroupService groupService
+@inject NavigationManager NavigationManager
+
+<style>
+    img {
+        border-radius: 30px;
+    }
+</style>
+<div class="container">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                Add Groups
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h3>My group shall be called</h3>
+                                <input type="text" class="form-control" placeholder="Enter Group Name"
+                            </div>
+                        </div>
+                    </div>
+                    <h5>Group Members</h5>
+                    <p></p>
+                    <div class="row" id="dynamic-fields-container">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name"
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email address (optional)"
+                            </div>
+                        </div>
+                    </div>
+                   
+                        <button type="button" class="btn btn-secondary ml-2 mt-3" onclick="addDynamicFields()">Add a person</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

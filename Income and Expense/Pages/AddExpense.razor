@@ -1,0 +1,36 @@
+﻿@page "/AddExpense"
+@using Income_and_Expense.Services
+@inject ExpenseService expenseService
+@inject NavigationManager NavigationManager
+
+@attribute [Authorize]
+
+<AuthorizeView Context="abc">
+    <Authorized>
+        @*<div class="container">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        Select User Name
+                    </div>
+                    <div class="card-body">
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="0">Select User</option>
+                            @foreach (var u in UserList)
+                            {
+                                <option value="@u.Value">@u.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-danger" type="button">Add Expense</button>
+            </div>
+        </div>
+
+    </Authorized>
+</AuthorizeView>

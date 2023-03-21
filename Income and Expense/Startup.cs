@@ -1,5 +1,6 @@
 using Income_and_Expense.Areas.Identity;
 using Income_and_Expense.Data;
+using Income_and_Expense.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,8 @@ namespace Income_and_Expense
           .AddEntityFrameworkStores<ApplicationDbContext>();
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddScoped<ExpenseService>();
+            services.AddScoped<GroupService>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();

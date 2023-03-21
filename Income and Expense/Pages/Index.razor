@@ -3,10 +3,117 @@
 @attribute [Authorize]
 <AuthorizeView>
     <Authorized>
-<h1>Hello, world!</h1>
+        <style>
+            .abc {
+                margin-left: 124px;
+            }
 
-Welcome to your new app.
+            .aaa {
+                margin-top: 30px;
+            }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+            .category {
+                float: left;
+                width: 64px;
+                height: 64px;
+                margin: 10px 10px 10px 0;
+                border-radius: 4px;
+                cursor: pointer;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                overflow-clip-margin: content-box;
+                overflow: clip;
+            }
+
+            span {
+                font-size: 30px;
+            }
+            p{
+                text-align:center;
+            }
+        </style>
+        <div class="card" style="min-height:530px">
+            <div class="card-header">
+                <span>Dashboard</span>
+                <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
+                <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
+                <hr />
+                <div class="row">
+                    <div class="col-4 border-right">
+                        <p>total balance</p>
+                    </div>
+                    <div class="col-4 border-right">
+                        <p>you owe</p>
+                    </div>
+                    <div class="col-4">
+                        <p>you are owed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 border-right">
+                        <h5>YOU OWE</h5>
+                    </div>
+                    <div class="col-6 border-left">
+                        <h5 style="text-align:right">YOU ARE OWED</h5>
+                    </div>
+                </div>
+                <div id="dashboard_balances">
+                    <div style="padding: 10px 15px; position: relative; margin: 20px -15px">
+
+                        <img style="position: absolute; top: 0; left: 65px; width: 150px;" src="https://assets.splitwise.com/assets/fat_rabbit/empty-table-effed2a2e610373b6407d746cb95858f5d47329c8610bb70f1fd2040dfa35165.png">
+                        <div style="text-align: left; padding-left: 235px;">
+                            <h3 style="font-size: 28px; line-height: 110%">
+
+                                You’re all settled up. Awesome!
+
+                            </h3>
+                            <div style="margin-top: 15px; color: #999; font-size: 18px; line-height: 24px">
+                                To add a new expense, click the orange “Add an expense” button.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="exampleModalLabel">Add an expense</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="main_fields col-3">
+                                    <img src="https://s3.amazonaws.com/splitwise/uploads/category/icon/square_v2/uncategorized/general@2x.png" class="category">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-6">
+                                        <input class="aaa" type="text" placeholder="Enter a description" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-6">
+                                        <input class="abc" type="text" placeholder="Rs 0.00" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </Authorized>
 </AuthorizeView>
