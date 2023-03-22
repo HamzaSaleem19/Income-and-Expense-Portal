@@ -1,0 +1,24 @@
+﻿@page "/Recentactivity"
+
+@attribute [Authorize]
+<AuthorizeView>
+    <Authorized>
+        <style>
+            span {
+                font-size: 30px;
+            }
+
+        </style>
+        <div class="card" style="min-height:600px">
+            <div class="card-header">
+                <span>Recent activity</span>
+            </div>
+            <div class="card-body">
+                <div style="margin-top: 15px; color: #999; font-size: 18px; line-height: 24px">
+                    There is no activity in your account yet. Try adding an expense!
+                </div>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
