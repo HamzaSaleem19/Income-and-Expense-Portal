@@ -82,6 +82,9 @@ namespace Income_and_Expense.Apis.Controllers
                     {
                         var hasher = new PasswordHasher<ApplicationUser>();
                         ApplicationUser user = new ApplicationUser();
+                        user.FirstName = userRegistrationVM.FirstName;
+                        user.LastName = userRegistrationVM.LastName;
+                        user.PhoneNumber = userRegistrationVM.MobileNo;
                         user.UserName = userRegistrationVM.Email;
                         user.Email = userRegistrationVM.Email;
                         user.ConcurrencyStamp = Guid.NewGuid().ToString();

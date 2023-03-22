@@ -96,6 +96,8 @@ namespace Income_and_Expense.Areas.Identity.Pages.Account
                     }
                     ApplicationUser user = new ApplicationUser();
                     var hasher = new PasswordHasher<ApplicationUser>();
+                    user.FirstName = Input.FirstName;
+                    user.LastName = Input.LastName;
                     user.PhoneNumber = Input.MobileNo;
                     user.UserName = Input.Email;
                     user.Email = Input.Email;
