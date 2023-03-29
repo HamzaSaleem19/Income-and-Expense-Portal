@@ -34,6 +34,16 @@ namespace Income_and_Expense.Services
         public async Task<bool> AddExpense(Expense expense)
         {
             await context.Expenses.AddAsync(expense);
+            List<ManageExpense> ListOfmanageExpense = new();
+            foreach (var item in expense.UserIds)
+            {
+                ManageExpense manageExpense = new ManageExpense();
+                manageExpense.User_Id = item;
+                manageExpense.Expense = expense;
+                manageExpense.Amount = expense.Amount/expense.UserIds.Count();
+                ListOfmanageExpense.Add(manageExpense);
+            }
+            await context.ManageExpenses.AddRangeAsync(ListOfmanageExpense);
             await context.SaveChangesAsync();
             return true;
         }
