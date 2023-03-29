@@ -1,4 +1,7 @@
 ﻿@page "/counter"
+@attribute [Authorize]
+<AuthorizeView>
+    <Authorized>
 
 <h1>Counter</h1>
 
@@ -14,3 +17,5 @@
         currentCount++;
     }
 }
+    </Authorized>
+</AuthorizeView>

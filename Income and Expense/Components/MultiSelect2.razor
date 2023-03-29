@@ -1,0 +1,46 @@
+﻿@typeparam TValue
+@inherits InputBase<TValue>
+
+<select id="@Id" class="form-control select2 w-100" data-placeholder="@DefaultOption" style="height:35px;" multiple="multiple">
+    @if (Datasource != null)
+    {
+        <option value="0" disabled>@DefaultOption</option>
+        @foreach (var item in Datasource.Where(x => x != null))
+        {
+            int j = 0;
+            if (Multiselection != null)
+            {
+                for (int i = 0; i < Multiselection.Length; i++)
+                {
+                    if (item.Value?.ToString() == Multiselection[i].ToString())
+                    {
+                        <option value="@item.Value" selected=@((item.Value?.ToString() == Multiselection[i].ToString() ? "selected" : ""))>
+                            @((MarkupString)@item.Text)
+                        </option>
+                        j = 1;
+                        break;
+                    }
+
+                }
+            }
+            else
+            {
+                <option value="@item.Value">
+                    @((MarkupString)@item.Text)
+                </option>
+            }
+            if (j == 0 && Multiselection != null)
+            {
+                <option value="@item.Value">
+                    @((MarkupString)@item.Text)
+                </option>
+            }
+
+
+        }
+    }
+    else
+    {
+        <option value="">No Data Available...</option>
+    }
+</select>

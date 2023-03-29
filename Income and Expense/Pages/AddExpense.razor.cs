@@ -13,17 +13,17 @@ namespace Income_and_Expense.Pages
 {
     public partial class AddExpense
     {
-        Expense e = new();
-        public List<Expense> expenseList = new();
-        public List<SelectListItem> UserList = new();
-        private Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager { get; set; }
-        protected override async Task OnInitializedAsync()
-        {
-            UserList = await expenseService.GetAllUsersAsync();
-        }
-        public async Task AddData()
-        {
-             await expenseService.AddExpense(e);
-        }
+        //Expense e = new();
+        //public List<Expense> expenseList = new();
+        //public List<SelectListItem> UserList = new();
+        //private Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager { get; set; }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    UserList = await expenseService.GetAllUsersAsync();
+        //}
+        //public async Task AddData()
+        //{
+        //     await expenseService.AddExpense(e);
+        //}
     }
 }
