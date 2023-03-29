@@ -39,6 +39,7 @@ namespace Income_and_Expense
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<ExpenseService>();
             services.AddScoped<GroupService>();
+            services.AddScoped<FriendService>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
