@@ -1,16 +1,47 @@
 ﻿@page "/counter"
+@using Microsoft.AspNetCore.Mvc.Rendering
 
-<h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<EditForm Model="users" OnValidSubmit="save">
+    <div class="rz-p-sm-12 rz-text-align-center">
+        <RadzenDropDown @bind-Value=@values Data=@WL_DistrictLists TextProperty="Text" ValueProperty="Value"
+                        Multiple=true AllowClear=true Placeholder="Select products" Style="width: 100%; max-width: 400px;" />
+    </div>
+    <button type="submit"> Save</button>
+ </EditForm>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+ 
 
 @code {
-    private int currentCount = 0;
+    public IEnumerable<string> values =new string[] {"1" ,"2" };
+    private SelectListItem[] WL_DistrictLists;
 
-    private void IncrementCount()
+    user users = new();
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+
+        SelectListItem[] items = new SelectListItem[10];
+
+        // Loop through the array and populate each SelectListItem with a random value
+        for (int i = 0; i < items.Length; i++)
+        {
+            int randomNumber = new Random().Next(100); // Generate a random number between 0 and 99
+            items[i] = new SelectListItem { Value = randomNumber.ToString(), Text = "Item " + randomNumber };
+        }
+
+        // Assign the array to the property
+        WL_DistrictLists = items;
+
+        await base.OnInitializedAsync();
+
+    }
+    public void save()
+    {
+        users.Id = values.ToArray();
+    }
+    public class user
+    {
+        public string[] Id { get; set; } = new string[] { };
+        public string Name { get; set; }
     }
 }

@@ -27,13 +27,14 @@ namespace Income_and_Expense.Services
                  new SelectListItem()
                  {
                      Value = x.Id,
-                     Text = x.UserName
+                     Text = x.FirstName+" "+x.LastName
                  }).ToListAsync();
             return userslist;
         }
         public async Task<bool> AddExpense(Expense expense)
         {
             await context.Expenses.AddAsync(expense);
+            await context.SaveChangesAsync();
             return true;
         }
     }
