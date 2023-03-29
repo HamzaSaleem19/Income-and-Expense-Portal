@@ -1,7 +1,5 @@
 ﻿@page "/counter"
 @using Microsoft.AspNetCore.Mvc.Rendering
-
-
 <EditForm Model="users" OnValidSubmit="save">
     <div class="rz-p-sm-12 rz-text-align-center">
         <RadzenDropDown @bind-Value=@values Data=@WL_DistrictLists TextProperty="Text" ValueProperty="Value"
@@ -45,5 +43,4 @@
         public string Name { get; set; }
     }
 }
-    </Authorized>
-</AuthorizeView>
+
