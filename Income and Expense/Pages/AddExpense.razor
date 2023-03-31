@@ -113,7 +113,7 @@
                 <div class="card-body">
                     @foreach (var exp in expenseList)
                     {
-                        <div id="accordion myDIV">
+                        <div id="accordion">
                             <div class="card">
                                 <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     @*<span>
@@ -136,7 +136,7 @@
                                         <div class="mr-auto p-2">@exp.DateTime<br /> @exp.Category</div>
                                         <div class="p-2">you paid<br /> @exp.Amount</div>
                                         <div class="p-2">you lent</div>
-                                    <a href=""><i class="hide delete1 fa fa-remove align-content-center" style="color:red; padding:27px"></i></a>
+                                   @* <a href=""><i class="delete1 fa fa-remove align-content-center" style="color:red; padding:27px"></i></a>*@
                                     
                                     
                                 </div>
