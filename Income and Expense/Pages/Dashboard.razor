@@ -6,36 +6,15 @@
 <AuthorizeView>
     <Authorized>
         <style>
-            /*.abc {
-                    margin-left: 124px;
-                    }
-
-                    .aaa {
-                    margin-top: 30px;
-                    }
-
-                    .category {
-                    float: left;
-                    width: 64px;
-                    height: 64px;
-                    margin: 10px 10px 10px 0;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-                    overflow-clip-margin: content-box;
-                    overflow: clip;
-                    }*/
-
-            span {
+            .span1 {
                 font-size: 30px;
             }
 
             p {
                 text-align: center;
-                margin: 0;
-                padding: 0;
             }
-            .paragraphColor{
+
+            .paragraphColor {
                 text-align: center;
                 margin: 0;
                 padding: 0;
@@ -44,7 +23,7 @@
         </style>
         <div class="card" style="min-height:530px">
             <div class="card-header">
-                <span>Dashboard</span>
+                <span class="span1">Dashboard</span>
                 <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
                 <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 <hr style="margin-top:10px" />
@@ -90,43 +69,101 @@
             </div>
         </div>
         <!-- Modal -->
+        @*       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Add an expense</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <form>
+        <div class="form-group">
+        <select class="form-select form-control" aria-label="Default select example">
+        <option value="0">Select User</option>
+        @foreach (var u in UserList)
+        {
+        <option value="@u.Value">@u.Text</option>
+        }
+        </select>
+        </div>
+        <div class="form-group">
+        <input class="form-control" type="text" placeholder="Enter a description" />
+        </div>
+        <div class="form-group">
+        <input class="form-control" type="text" placeholder="Rs 0.00" />
+        </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Save</button>
+        </div>
+        </div>
+        </div>
+        </div>*@
+
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header bg-success text-white">
+                    <div class="modal-header bg-info text-black">
                         <h5 class="modal-title" id="exampleModalLabel">Add an expense</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <EditForm Model="e" OnValidSubmit="AddData" Context="abc">
                             <div class="form-group">
-                             <select class="form-select form-control" aria-label="Default select example">
-                            <option value="0">Select User</option>
-                            @foreach (var u in UserList)
-                            {
-                            <option value="@u.Value">@u.Text</option>
-                            }
-                            </select>
+                                <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
+                                                Multiple=true AllowClear=true Placeholder="Select Users" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Enter a description" @bind="@e.Description" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Rs 0.00" @bind="@e.Amount" />
+                            </div>
+                            <div class="form-group">
+                                <select DefaultText="Select Category" class="form-control" @bind="@e.Category">
+                                    <option>Category</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Drink">Drink</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-select form-control" aria-label="Default select example" @bind="@e.Paidby">
+                                    <option value="0">Paid by</option>
+                                    @foreach (var u in UserList)
+                                    {
+                                        <option value="@u.Value">@u.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" class="form-control" id="" placeholder="Enter Date of Activity" @bind="e.DateTime">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-select form-control" aria-label="Default select example" @bind="@e.Group_Id">
+                                    <option value="0">select Group</option>
+                                    @foreach (var g in GroupList)
+                                    {
+                                        <option value="@g.Value">@g.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7">Equally</button>
                             </div>
 
-                            @*<div class="form-group">
-                                        <label for="">Key Species *</label>
-                                        <Income_and_Expense.Components.MultiSelect2 Id="KeySpeciesId" Datasource="@UserList" @bind-Value="e.Image" DefaultOption="Select Key Species">
-                                        </Income_and_Expense.Components.MultiSelect2>
-                                    </div>*@
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Enter a description" />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Rs 0.00" />
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        </EditForm>
                     </div>
                 </div>
             </div>
