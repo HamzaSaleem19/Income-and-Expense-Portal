@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Income_and_Expense.Services
             AuthenticationState authState = await UserauthenticationStateProvider.GetAuthenticationStateAsync();
             ClaimsPrincipal user = authState.User;
             var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var userName = User.FindFirstValue(ClaimTypes.Name);
+            //var userName = user.FindFirstValue(ClaimTypes.Name);
             var userslist = await userManager.Users.Select(x =>
                  new SelectListItem()
                  {
@@ -57,10 +58,24 @@ namespace Income_and_Expense.Services
                 manageExpense.Expense = expense;
                 manageExpense.Amount = expense.Amount/expense.UserIds.Count();
                 ListOfmanageExpense.Add(manageExpense);
+                //var lent = expense.Amount - manageExpense.Amount;
             }
+           
             await context.ManageExpenses.AddRangeAsync(ListOfmanageExpense);
             await context.SaveChangesAsync();
             return true;
+        }
+        public async Task<List<Expense>> GetAllExpenses()
+        {
+            try
+            {
+                return await context.Expenses.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
         }
     }
 }
