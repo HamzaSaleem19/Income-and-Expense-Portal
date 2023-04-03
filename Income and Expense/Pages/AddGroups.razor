@@ -2,6 +2,12 @@
 @using Income_and_Expense.Services
 @inject GroupService groupService
 @inject NavigationManager NavigationManager
+@using Income_and_Expense.Helpers
+
+<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">Add group </button>
+<h1> Groups </h1>
+
+
 
 <style>
     img {
@@ -12,36 +18,121 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                Add Groups
+                START A NEW GROUP
             </div>
             <div class="card-body">
                 <form>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h3>My group shall be called</h3>
-                                <input type="text" class="form-control" placeholder="Enter Group Name"
+                                <h5>My group shall be called</h5>
+                                <input type="text" class="form-control" placeholder="Enter Group Name" @bind="g.Group_Name" />
                             </div>
                         </div>
+                        
                     </div>
-                    <h5>Group Members</h5>
-                    <p></p>
-                    <div class="row" id="dynamic-fields-container">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Name"
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email address (optional)"
-                            </div>
-                        </div>
-                    </div>
+                    
                    
-                        <button type="button" class="btn btn-secondary ml-2 mt-3" onclick="addDynamicFields()">Add a person</button>
+                    <div class="row">
+                       @* <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Group Members</label>
+                                <input type="text" class="form-control" placeholder="Name" />
+                            </div>                           
+                        </div>*@
+                        @*<div class="col-md-3">
+                            <div class="form-group">
+                                <label>Email address</label>
+                                <input type="text" class="form-control" placeholder="Email address (optional)" />
+                            </div>
+                        </div>*@
+                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Group Type</label>
+                            <select DefaultText="Select Type" class="form-control" @bind="g.Group_Type">
+                                <option disabled>Select Type</option>
+                                @foreach (var item in EnumHelper.GetKeyValuesFromEnum(typeof(GroupType)))
+                                {
+                                    <option value="@item.Key">@item.Value</option>
+                                }
+                            </select>
+                            </div>
+                        </div>
+
+
+                       @* <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Group User </label>
+                                <select class="form-select form-control" aria-label="Default select example">
+                                    <option value="0">Select User</option>
+                                    @foreach (var a in grouplist)
+                                    {
+                                        <option value="@a.Value ">@a.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>*@
+                        <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Group user</label>
+                            <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@grouplist TextProperty="Text" ValueProperty="Value"
+                                            Multiple=true AllowClear=true Placeholder="Select Users"/>
+                        </div>
+                        </div>
+                    </div>      
+                    
+                        <button type="button" class="btn btn-primary ml-2 mt-3" @onclick="AddData">Add a person</button>                   
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<br/>
+
+
+
+<!--Modal-->
+
+@if (groupobj is null)
+{
+    <p><em>Loading...!</em></p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead class="bg-primary text-light">
+            <tr>
+                <th>Sr.No</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Users</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+               var sNo = 0;
+            }
+            @foreach (var a in groupobj)
+            {
+                sNo++;
+                <tr>
+                    <td>@sNo</td>
+                    <td>@a.Group_Name</td>
+                    <td>@a.Group_Type</td>
+                    <td>@valuess</td>
+                    <td>
+                        <span>
+                          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" @onclick="()=>UpdateGroup(a.Group_Id)"><i class="fa fa-edit"></i></button>
+                          <button type="button" class="btn btn-danger btn-sm" @onclick="()=>DeleteGroup(a.Group_Id)"> <i class="fa fa-trash"></i> </button>
+                        </span>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+        

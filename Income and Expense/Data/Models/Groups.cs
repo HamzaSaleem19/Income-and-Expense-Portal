@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Income_and_Expense.Data.Models
 {
     public class Groups
     {
+        [NotMapped]
+        public string[] UserIds { get; set; } = new string[] { };
         [Key]
         public int Group_Id { get; set; }
         public string Group_Name { get; set; }
@@ -16,7 +19,9 @@ namespace Income_and_Expense.Data.Models
         public ICollection<Expense> Expenses { get; set; }
         public ICollection<UserGroup> UserGroups { get; set; }
 
-
-
+        public static implicit operator List<object>(Groups v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
