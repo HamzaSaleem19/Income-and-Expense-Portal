@@ -42,11 +42,6 @@
                 padding-bottom: 3px;
             }
 
-            /*.btn {
-                                        border-color: #ccc;
-                                        border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
-                                        box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(0,0,0,0.05);
-                                    }*/
             .btn-orange {
                 background: #ff652f;
                 color: #fff;
@@ -58,25 +53,29 @@
                 font-size: 11px;
                 line-height: 14px;
             }
-            .delete1:hover{
-                color:darkred;
+
+            i:hover {
+                color: darkred;
             }
-            .right{
-                margin-left:30px;
+
+            .right {
+                margin-left: 30px;
             }
-            .hide{
-                display:none;
+
+            .hide {
+                display: none;
             }
 
             .myDIV:hover + .hide {
                 display: block;
                 color: red;
             }
-            .img{
-                width:60px;
-                height:60px;
-                border-radius:30px;
-                background-color:orange;
+
+            .img {
+                width: 60px;
+                height: 60px;
+                border-radius: 30px;
+                background-color: orange;
             }
         </style>
         @if (expenseList == null)
@@ -129,7 +128,7 @@
                         childcollapse = childcollapse + newcollapsecount;
                         <div id="accordion">
                             <div class="card">
-                                <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                @*<div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">*@
                                     @*<span>
                             <h5 class="mb-0">
 
@@ -147,108 +146,104 @@
                             </h5>
                             </span>*@
 
-                                    <div class="mr-auto p-2">@exp.DateTime<br /> @exp.Category</div>
-                                    <div class="p-2">you paid<br /> @exp.Amount</div>
-                                    <div class="p-2">you lent</div>
-                                    @* <a href=""><i class="delete1 fa fa-remove align-content-center" style="color:red; padding:27px"></i></a>*@
+                                    <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
 
-
-                                <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
-                                
-                                        <div class="mr-auto p-2">@exp.DateTime<br /> @exp.Category</div>
+                                    <div class="mr-auto p-2">@exp.DateTime.ToString("MM-dd-yyyy")<br /> @exp.Category</div>
                                         <div class="p-2">you paid<br /> @exp.Amount</div>
                                         <div class="p-2">you lent</div>
-                                    <button class="btn btn-sm"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:27px"></i></button>
-                                    
-                                    
-                                </div>
-                                <div id="@childcollapse" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body" style="background-color:#F8F8F8">
-                                        <div class="users" style="display: block;">
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <img src="https://s3.amazonaws.com/splitwise/uploads/category/icon/square_v2/uncategorized/general@2x.png" class="category" title="General" alt="General">
-                                                            <h3 class="ml-3">@exp.Category</h3>
-                                                            <div class="cost">
-                                                                Rs @exp.Amount
-                                                            </div>
-                                                            <div class="creation_info">
-                                                               
-                                                                Added by @exp.PaidName on @exp.DateTime
-                                                                <br>
-                                                                <a data-toggle="modal" href="#add_bill" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
-                                                                    Edit expense
-                                                                </a>
-                                                            </div>
-                                                            <hr>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="left">
-                                                            <table class="shares">
-                                                                <tbody>
-                                                                    <tr class="user">
-                                                                        <td class="avatar">
-                                                                            <img src="user-128.png" class="img" alt="User avatar">
-                                                                        </td>
-                                                                        <td>
-
-                                                                            <strong>@exp.PaidName</strong> paid <strong>@exp.Amount</strong> and owes <strong>Rs50.00</strong>
-                                                                        </td>
-                                                                    </tr>
-                                                                    @*<tr class="user">
-                                                                        <td class="avatar">
-                                                                            <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" class="avatar" alt="User avatar">
-                                                                        </td>
-                                                                        <td>
-                                                                            <strong>Hamza</strong> owes <strong>Rs50.00</strong>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="user">
-                                                                        <td class="avatar">
-                                                                            <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-ruby42-100px.png" class="avatar" alt="User avatar">
-                                                                        </td>
-                                                                        <td>
-
-                                                                            <strong>Mohsin K.</strong> owes <strong>Rs50.00</strong>
-                                                                        </td>
-                                                                    </tr>*@
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                        <td class="right">
-
-                                                            @*<iframe src="/api/v3.0/charts/expense_details?expense_id=2266021889&amp;platform=web&amp;height=110" style="margin-top: 5px; width: 100%; height: 110px; border: none; overflow: hidden" scrolling="no"></iframe>*@
-                                                            <a href="#" class="open_charts">View more charts</a>
+                                        <button class="btn btn-sm"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:27px"></i></button>
 
 
-                                                            <div class="comments">
-                                                                <h4><i class="icon-comment"></i> Notes and comments</h4>
-
-
-
-
-                                                                <div class="add_comment">
-                                                                    <textarea placeholder="Add a comment" cols="40" rows="2"></textarea>
-                                                                    <br>
-                                                                    <button class="btn btn-small btn-orange">Post</button>
+                                    </div>
+                                    <div id="@childcollapse" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                        <div class="card-body" style="background-color:#F8F8F8">
+                                            <div class="users" style="display: block;">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <img src="https://s3.amazonaws.com/splitwise/uploads/category/icon/square_v2/uncategorized/general@2x.png" class="category" title="General" alt="General">
+                                                                <h3 class="ml-3">@exp.Category</h3>
+                                                                <div class="cost">
+                                                                    Rs @exp.Amount
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                                <div class="creation_info">
+
+                                                                Added by <strong>@exp.PaidName</strong> on @exp.DateTime.ToString("MM-dd-yyyy")
+                                                                    <br>
+                                                                    <a data-toggle="modal" href="#add_bill" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
+                                                                        Edit expense
+                                                                    </a>
+                                                                </div>
+                                                                <hr>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="left">
+                                                                <table class="shares">
+                                                                    <tbody>
+                                                                        <tr class="user">
+                                                                            <td class="avatar">
+                                                                                <img src="user-128.png" class="img" alt="User avatar">
+                                                                            </td>
+                                                                            <td>
+
+                                                                                <strong>@exp.PaidName</strong> paid <strong>@exp.Amount</strong> and owes <strong>Rs50.00</strong>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr class="user">
+                                                                <td class="avatar">
+                                                                <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" class="avatar" alt="User avatar">
+                                                                </td>
+                                                                <td>
+                                                                <strong>Hamza</strong> owes <strong>Rs50.00</strong>
+                                                                </td>
+                                                                </tr>
+                                                                <tr class="user">
+                                                                <td class="avatar">
+                                                                <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-ruby42-100px.png" class="avatar" alt="User avatar">
+                                                                </td>
+                                                                <td>
+
+                                                                <strong>Mohsin K.</strong> owes <strong>Rs50.00</strong>
+                                                                </td>
+                                                                </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td class="right">
+
+                                                                @*<iframe src="/api/v3.0/charts/expense_details?expense_id=2266021889&amp;platform=web&amp;height=110" style="margin-top: 5px; width: 100%; height: 110px; border: none; overflow: hidden" scrolling="no"></iframe>*@
+                                                                <a href="#" class="open_charts">View more charts</a>
+
+
+                                                                <div class="comments">
+                                                                    <h4><i class="icon-comment"></i> Notes and comments</h4>
+
+
+
+
+                                                                    <div class="add_comment">
+                                                                        <textarea placeholder="Add a comment" cols="40" rows="2"></textarea>
+                                                                        <br>
+                                                                        <button class="btn btn-small btn-orange">Post</button>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     }
                 </div>
             </div>
         }
+
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -301,7 +296,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3" >Equally</button>
+                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3">Equally</button>
                             </div>
 
                             <div class="modal-footer">
@@ -313,8 +308,8 @@
                 </div>
             </div>
         </div>
-        @*
-        //settele up*@
+   
+        <!-- SettleUp -->
         <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -333,14 +328,14 @@
                                 <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal2">Record a Cash Payment</button>
                             </div>
                             <div class="form-group">
-                                 <button class="btn btn-large btn-payment disabled" data-transaction-method="paypal" style="background-color: #ffffff; width:472px;">
-                                <div class="form-group">
-                                    <img src="/images/easypaisaicon.png" alt="eazypaisa">
-                                </div>
-                            </button>
+                                <button class="btn btn-large btn-payment disabled" data-transaction-method="paypal" style="background-color: #ffffff; width:472px;">
+                                    <div class="form-group">
+                                        <img src="/images/easypaisaicon.png" alt="eazypaisa">
+                                    </div>
+                                </button>
                             </div>
                             <div class="form-group">
-                             <p style="text-align: centre;">When you use a payment service, your payment is shared with that company under its Privacy Policy and Terms, including any fees if applicable. Splitwise charges no additional fees.</p>   
+                                <p style="text-align: centre;">When you use a payment service, your payment is shared with that company under its Privacy Policy and Terms, including any fees if applicable. Splitwise charges no additional fees.</p>
                             </div>
                         </div>
                     </div>
@@ -348,8 +343,7 @@
             </div>
         </div>
 
-         @*
-        //Record a Cash Payment*@
+        <!-- Record Cash Payment -->
         <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -360,17 +354,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                         <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-         @*
-        //Equally*@
+        <!-- Equally -->
         <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -380,16 +373,16 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                  <div class="modal-body">
+                    <div class="modal-body">
                         <div>
                             <h3>
                                 Amount Divided eqully between all selected Users.
                                 Click close button and go back to form.
                             </h3>
                         </div>
-                         <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Close</button>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
