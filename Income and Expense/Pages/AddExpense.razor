@@ -278,7 +278,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7">Equally</button>
+                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3" >Equally</button>
                             </div>
 
                             <div class="modal-footer">
@@ -307,7 +307,7 @@
                                 <p style="text-align: centre;">Choose a payment method</p>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7">Record a Cash Payment</button>
+                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal2">Record a Cash Payment</button>
                             </div>
                             <div class="form-group">
                                  <button class="btn btn-large btn-payment disabled" data-transaction-method="paypal" style="background-color: #ffffff; width:472px;">
@@ -325,5 +325,51 @@
             </div>
         </div>
 
+         @*
+        //Record a Cash Payment*@
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-black">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Settle up</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         @*
+        //Equally*@
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-black">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Split equally</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                  <div class="modal-body">
+                        <div>
+                            <h3>
+                                Amount Divided eqully between all selected Users.
+                                Click close button and go back to form.
+                            </h3>
+                        </div>
+                         <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Close</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </Authorized>
 </AuthorizeView>

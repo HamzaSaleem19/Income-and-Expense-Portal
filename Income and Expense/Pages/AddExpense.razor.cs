@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,6 +42,19 @@ namespace Income_and_Expense.Pages
         {
             e = new();
             StateHasChanged();
+        }
+
+        protected async void DeleteExpense(int Expense_Id)
+        {
+            try
+            {
+                await expenseService.DeleteExpenseAsync(Expense_Id);
+                NavigationManager.NavigateTo("AllExpenses", true);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
