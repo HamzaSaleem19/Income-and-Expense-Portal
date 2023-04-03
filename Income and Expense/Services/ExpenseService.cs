@@ -87,6 +87,17 @@ namespace Income_and_Expense.Services
             }
 
         }
+        public async Task<bool> DeleteExpenseAsync(int Expense_Id)//delete expense
+        {
+            var checkexprecord = await context.Expenses.Where(x => x.Expense_Id == Expense_Id).FirstOrDefaultAsync();
+            if (checkexprecord != null)
+            {
+                context.Expenses.Remove(checkexprecord);
+                await context.SaveChangesAsync();
+            }
+
+            return true;
+        }
         public async Task<DashboardVM> GetDasahboard()
         {
             DashboardVM dashboard = new();

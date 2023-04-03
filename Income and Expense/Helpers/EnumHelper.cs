@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Income_and_Expense.Helpers
 {
     public static class EnumHelper
-    { 
-        public static Dictionary<string, string> GetKeyValuesFromEnum( Type enumType)
+    {
+        public static Dictionary<string, string> GetKeyValuesFromEnum(Type enumType)
         {
             Dictionary<string, string> results = new Dictionary<string, string>();
             //var type = typeof(T);

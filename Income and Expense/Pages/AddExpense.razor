@@ -113,7 +113,7 @@
             <div class="card">
                 <div class="card-header">
                     <span class="span1">All expenses</span>
-                    <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
+                    <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button" data-toggle="modal" data-target="#exampleModal1">Settle up</button>
                     <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 </div>
                 <div class="card-body">
@@ -129,6 +129,30 @@
                         childcollapse = childcollapse + newcollapsecount;
                         <div id="accordion">
                             <div class="card">
+                                <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    @*<span>
+                            <h5 class="mb-0">
+
+                            <span class="mr-2">@exp.DateTime.ToString("MM-dd-yyyy")<br>@exp.Category
+
+                            <div class="float-right ml-5 mr-5">
+                            you lent<br>
+                            <span>@exp.Amount</span>
+                            </div>
+                            <div class="float-right justify-content-end">
+                            you paid<br>
+                            <span class="number">Rs @exp.Amount</span>
+                            </div>
+                            </span>
+                            </h5>
+                            </span>*@
+
+                                    <div class="mr-auto p-2">@exp.DateTime<br /> @exp.Category</div>
+                                    <div class="p-2">you paid<br /> @exp.Amount</div>
+                                    <div class="p-2">you lent</div>
+                                    @* <a href=""><i class="delete1 fa fa-remove align-content-center" style="color:red; padding:27px"></i></a>*@
+
+
                                 <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
                                 
                                         <div class="mr-auto p-2">@exp.DateTime<br /> @exp.Category</div>
@@ -276,8 +300,8 @@
                                     }
                                 </select>
                             </div>
-                           <div class="form-group">
-                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7">Equally</button>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3" >Equally</button>
                             </div>
 
                             <div class="modal-footer">
@@ -289,6 +313,86 @@
                 </div>
             </div>
         </div>
+        @*
+        //settele up*@
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-black">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Settle up</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="overlay">
+                            <div class="form-group">
+                                <p style="text-align: centre;">Choose a payment method</p>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal2">Record a Cash Payment</button>
+                            </div>
+                            <div class="form-group">
+                                 <button class="btn btn-large btn-payment disabled" data-transaction-method="paypal" style="background-color: #ffffff; width:472px;">
+                                <div class="form-group">
+                                    <img src="/images/easypaisaicon.png" alt="eazypaisa">
+                                </div>
+                            </button>
+                            </div>
+                            <div class="form-group">
+                             <p style="text-align: centre;">When you use a payment service, your payment is shared with that company under its Privacy Policy and Terms, including any fees if applicable. Splitwise charges no additional fees.</p>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+         @*
+        //Record a Cash Payment*@
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-black">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Settle up</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         @*
+        //Equally*@
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-black">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Split equally</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                  <div class="modal-body">
+                        <div>
+                            <h3>
+                                Amount Divided eqully between all selected Users.
+                                Click close button and go back to form.
+                            </h3>
+                        </div>
+                         <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Close</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </Authorized>
 </AuthorizeView>

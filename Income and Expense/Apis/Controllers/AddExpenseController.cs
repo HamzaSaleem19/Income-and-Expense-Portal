@@ -17,6 +17,7 @@ namespace Income_and_Expense.Apis.Controllers
     [ApiController]
     public class AddExpenseController : ControllerBase
     {
+        public IEnumerable<string> valuess = new string[] { };
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext context;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -44,6 +45,7 @@ namespace Income_and_Expense.Apis.Controllers
         [HttpPost]
         public async Task<IActionResult> AddExpense([FromBody] Expense expense)
         {
+            expense.UserIds = valuess.ToArray();
             await context.Expenses.AddAsync(expense);
             List<ManageExpense> ListOfmanageExpense = new();
             foreach (var item in expense.UserIds)
