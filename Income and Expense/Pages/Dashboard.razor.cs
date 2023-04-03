@@ -1,6 +1,7 @@
 ﻿using Income_and_Expense.Data;
 using Income_and_Expense.Data.Models;
 using Income_and_Expense.Services;
+using Income_and_Expense.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Income_and_Expense.Pages
 {
     public partial class Dashboard
     {
+        public DashboardVM Dfm = new();
         [Inject]
         public GroupService groupService { get; set; }
         [Inject]
@@ -30,19 +32,25 @@ namespace Income_and_Expense.Pages
         public string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
         protected override async Task OnInitializedAsync()
         {
+            expenseList = await expenseService.GetAllExpenses();
             UserList = await expenseService.GetAllUsersAsync();
             GroupList = await groupService.GetAllGroupsList();
+            await DashboardData();
         }
         public async Task AddData()
         {
             e.UserIds = valuess.ToArray();
             await expenseService.AddExpense(e);
-            NavigationManager.NavigateTo("AllExpenses", true);
+            NavigationManager.NavigateTo("/", true);
         }
         void Cancel()
         {
             e = new();
             StateHasChanged();
+        }
+        public async Task DashboardData()
+        {
+            Dfm = await expenseService.GetDasahboard();
         }
     }
 }

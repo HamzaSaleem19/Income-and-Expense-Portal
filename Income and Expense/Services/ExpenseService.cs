@@ -1,5 +1,6 @@
 ﻿using Income_and_Expense.Data;
 using Income_and_Expense.Data.Models;
+using Income_and_Expense.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -69,13 +70,35 @@ namespace Income_and_Expense.Services
         {
             try
             {
-                return await context.Expenses.ToListAsync();
+
+                var listofExpenses= await context.Expenses.ToListAsync();
+                foreach (var item in listofExpenses)
+                {
+                    item.PaidName = await GetUserName(item.Paidby);
+                }
+
+
+           
+                return listofExpenses;
             }
             catch (Exception e)
             {
                 throw;
             }
 
+        }
+        public async Task<DashboardVM> GetDasahboard()
+        {
+            DashboardVM dashboard = new();
+            dashboard.Amount = context.Expenses.Count();
+            return dashboard;
+
+        }
+        public async Task<string> GetUserName(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            var username = (user == null ? "" : user.FirstName + " " + user.LastName);
+            return username;
         }
     }
 }

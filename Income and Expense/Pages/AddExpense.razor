@@ -72,6 +72,12 @@
                 display: block;
                 color: red;
             }
+            .img{
+                width:60px;
+                height:60px;
+                border-radius:30px;
+                background-color:orange;
+            }
         </style>
         @if (expenseList == null)
         {
@@ -111,37 +117,29 @@
                     <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 </div>
                 <div class="card-body">
+                    @{
+                        int newcollapsecount = 0;
+                        string parentcollapse = "#collapseThree";
+                        string childcollapse = "collapseThree";
+                    }
                     @foreach (var exp in expenseList)
                     {
+                        newcollapsecount += 1;
+                        parentcollapse = parentcollapse + newcollapsecount;
+                        childcollapse = childcollapse + newcollapsecount;
                         <div id="accordion">
                             <div class="card">
-                                <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    @*<span>
-                            <h5 class="mb-0">
-
-                            <span class="mr-2">@exp.DateTime.ToString("MM-dd-yyyy")<br>@exp.Category
-
-                            <div class="float-right ml-5 mr-5">
-                            you lent<br>
-                            <span>@exp.Amount</span>
-                            </div>
-                            <div class="float-right justify-content-end">
-                            you paid<br>
-                            <span class="number">Rs @exp.Amount</span>
-                            </div>
-                            </span>
-                            </h5>
-                            </span>*@
-                                    
+                                <div class="card-header d-flex bg-info text-white collapsed" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
+                                
                                         <div class="mr-auto p-2">@exp.DateTime<br /> @exp.Category</div>
                                         <div class="p-2">you paid<br /> @exp.Amount</div>
                                         <div class="p-2">you lent</div>
-                                   @* <a href=""><i class="delete1 fa fa-remove align-content-center" style="color:red; padding:27px"></i></a>*@
+                                    <button class="btn btn-sm"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:27px"></i></button>
                                     
                                     
                                 </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
+                                <div id="@childcollapse" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body" style="background-color:#F8F8F8">
                                         <div class="users" style="display: block;">
                                             <table>
                                                 <tbody>
@@ -153,7 +151,8 @@
                                                                 Rs @exp.Amount
                                                             </div>
                                                             <div class="creation_info">
-                                                                Added by @exp.Paidby  on @exp.DateTime
+                                                               
+                                                                Added by @exp.PaidName on @exp.DateTime
                                                                 <br>
                                                                 <a data-toggle="modal" href="#add_bill" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
                                                                     Edit expense
@@ -168,14 +167,14 @@
                                                                 <tbody>
                                                                     <tr class="user">
                                                                         <td class="avatar">
-                                                                            <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-blue8-100px.png" class="avatar" alt="User avatar">
+                                                                            <img src="user-128.png" class="img" alt="User avatar">
                                                                         </td>
                                                                         <td>
 
-                                                                            <strong>@exp.Paidby</strong> paid <strong>@exp.Amount</strong> and owes <strong>Rs50.00</strong>
+                                                                            <strong>@exp.PaidName</strong> paid <strong>@exp.Amount</strong> and owes <strong>Rs50.00</strong>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr class="user">
+                                                                    @*<tr class="user">
                                                                         <td class="avatar">
                                                                             <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" class="avatar" alt="User avatar">
                                                                         </td>
@@ -191,7 +190,7 @@
 
                                                                             <strong>Mohsin K.</strong> owes <strong>Rs50.00</strong>
                                                                         </td>
-                                                                    </tr>
+                                                                    </tr>*@
                                                                 </tbody>
                                                             </table>
                                                         </td>

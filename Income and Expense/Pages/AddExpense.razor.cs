@@ -2,6 +2,7 @@
 using Income_and_Expense.Data.Models;
 using Income_and_Expense.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,10 @@ namespace Income_and_Expense.Pages
         public GroupService groupService { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+        [Inject]
+        private  UserManager<ApplicationUser> _userManager { get; set; }
+
+
         Expense e = new();
         public IEnumerable<string> valuess = new string[] { };
         public List<Expense> expenseList = new();
@@ -33,6 +38,9 @@ namespace Income_and_Expense.Pages
         }
         public async Task AddData()
         {
+            var tt =await GetUserName("");
+
+
             e.UserIds = valuess.ToArray();
             await expenseService.AddExpense(e);
             NavigationManager.NavigateTo("AllExpenses", true);
@@ -41,6 +49,13 @@ namespace Income_and_Expense.Pages
         {
             e = new();
             StateHasChanged();
+        }
+
+        public async Task<string> GetUserName(string userId)
+        {
+            var user= await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
+            var username =  (user == null ? "" : user.FirstName + " " + user.LastName);
+            return username;
         }
     }
 }

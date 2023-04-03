@@ -20,6 +20,15 @@
                 padding: 0;
                 color: #5bc5a7;
             }
+            img{
+                border-radius:30px;
+                width:60px;
+                height:60px;
+            }
+            .dash-list :hover{
+                background-color:lightgrey;
+                text-decoration:none;
+            }
         </style>
         <div class="card" style="min-height:530px">
             <div class="card-header">
@@ -30,7 +39,7 @@
                 <div class="row">
                     <div class="col-4 border-right">
                         <p>total balance</p>
-                        <p class="paragraphColor">+Rs100.00</p>
+                        <p class="paragraphColor">+Rs100.00  @Dfm.Amount</p>
                     </div>
                     <div class="col-4 border-right">
                         <p>you owe</p>
@@ -47,10 +56,47 @@
                     </div>
                     <div class="col-6 border-left">
                         <h5 style="text-align:right">YOU ARE OWED</h5>
+                        
+                        @foreach (var a in expenseList)
+                        {
+                            @*<div>
+                                        <a href="#/friends/66544786">
+                                            <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" alt="Avatar">
+                                            <span style="margin-left:20px">Hamza</span><br>
+                                            <span style="margin-left:50px">
+                                                owes you
+                                                <span class="amount">Rs100.00</span>
+                                            </span>
+
+                                        </a>
+                                        </div>*@
+                       @* <div class="bg-info">
+                            <p>@a.Amount</p>
+                            </div>*@
+                            <div class="dash-list">
+                                <a href="">
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" alt="Avatar">
+                                    </div>
+                                    <div class="col-4" style="width:50px">
+                                    <span>@a</span><br>
+                                    <span style="color:#5bc5a7">
+                                        owes you
+                                        <span class="amount">Rs100.00</span>
+                                    </span>
+                                    </div>
+                            </div>
+                                </a>
+                            </div>
+                        }
                     </div>
+                    
                 </div>
-                <div id="dashboard_balances">
-                    <div style="padding: 10px 15px; position: relative; margin: 20px -15px">
+                @if (expenseList == null)
+                {
+                    <div id="dashboard_balances">
+                        <div style="padding: 10px 15px; position: relative; margin: 20px -15px">
 
                         <img style="position: absolute; top: 0; left: 65px; width: 150px;" src="https://assets.splitwise.com/assets/fat_rabbit/empty-table-effed2a2e610373b6407d746cb95858f5d47329c8610bb70f1fd2040dfa35165.png">
                         <div style="text-align: left; padding-left: 235px;">
@@ -66,6 +112,7 @@
 
                     </div>
                 </div>
+                }
             </div>
         </div>
         <!-- Modal -->

@@ -20,6 +20,8 @@ namespace Income_and_Expense.Data.Models
         [ForeignKey("Group_Id")]
         public Groups Group { get; set; }
         public string Paidby { get; set; }
+        [NotMapped]
+        public string PaidName { get; set; }
         public string Equallysplited { get; set; }
 
     }
