@@ -36,10 +36,11 @@
                 <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
                 <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 <hr style="margin-top:10px" />
+                
                 <div class="row">
                     <div class="col-4 border-right">
                         <p>total balance</p>
-                        <p class="paragraphColor">+Rs100.00  @Dfm.Amount</p>
+                        <p class="paragraphColor">+Rs</p>
                     </div>
                     <div class="col-4 border-right">
                         <p>you owe</p>
@@ -57,7 +58,7 @@
                     <div class="col-6 border-left">
                         <h5 style="text-align:right">YOU ARE OWED</h5>
                         
-                        @foreach (var a in expenseList)
+                        @foreach (var a in ManageExpenseList)
                         {
                             @*<div>
                                         <a href="#/friends/66544786">
@@ -80,10 +81,10 @@
                                     <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" alt="Avatar">
                                     </div>
                                     <div class="col-4" style="width:50px">
-                                    <span>@a</span><br>
+                                    <span>@a.SplitName</span><br>
                                     <span style="color:#5bc5a7">
                                         owes you
-                                        <span class="amount">Rs100.00</span>
+                                        <span class="amount">Rs @a.Amount</span>
                                     </span>
                                     </div>
                             </div>

@@ -14,6 +14,8 @@ namespace Income_and_Expense.Data.Models
         [NotMapped]
         public string[] UserIds { get; set; } = new string[] {  };
         public double Amount  { get; set; }
+       
+        public double Lent { get; set; }
         public string Image { get; set; }
         public DateTime DateTime { get; set; }
         public int Group_Id { get; set; } //FK

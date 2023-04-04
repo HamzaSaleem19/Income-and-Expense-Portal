@@ -150,7 +150,7 @@
 
                                     <div class="mr-auto p-2">@exp.DateTime.ToString("MM-dd-yyyy")<br /> @exp.Category</div>
                                         <div class="p-2">you paid<br /> @exp.Amount</div>
-                                        <div class="p-2">you lent</div>
+                                        <div class="p-2">you lent<br /> @exp.Lent</div> 
                                         <button class="btn btn-sm"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:27px"></i></button>
 
 
@@ -170,6 +170,8 @@
                                                                 <div class="creation_info">
 
                                                                 Added by <strong>@exp.PaidName</strong> on @exp.DateTime.ToString("MM-dd-yyyy")
+                                                                <br />
+                                                                <strong>@exp.PaidName</strong> paid: <strong>Rs.@exp.Amount</strong>
                                                                     <br>
                                                                     <a data-toggle="modal" href="#add_bill" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
                                                                         Edit expense
@@ -183,14 +185,31 @@
                                                                 <table class="shares">
                                                                     <tbody>
                                                                         <tr class="user">
-                                                                            <td class="avatar">
+                                                                            @*<td class="avatar">
                                                                                 <img src="user-128.png" class="img" alt="User avatar">
-                                                                            </td>
+                                                                            </td>*@
                                                                             <td>
 
-                                                                                <strong>@exp.PaidName</strong> paid <strong>@exp.Amount</strong> and owes <strong>Rs50.00</strong>
+                                                                                <strong>@exp.PaidName</strong> paid <strong>@exp.Amount</strong>
                                                                             </td>
                                                                         </tr>
+                                                                        
+                                                                        @foreach (var item in manageExpenseList)
+                                                                    {
+                                                                        @if (exp.Expense_Id == item.Expense_Id)
+                                                                        {
+
+                                                                            <tr class="user">
+                                                                                <td class="avatar">
+                                                                                    <img src="user-128.png" class="img" alt="User avatar">
+                                                                                </td>
+                                                                                <td>
+
+                                                                                    <strong>@item.SplitName</strong> owes <strong>@item.Amount</strong>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
                                                                         @*<tr class="user">
                                                                 <td class="avatar">
                                                                 <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" class="avatar" alt="User avatar">
@@ -214,7 +233,7 @@
                                                             <td class="right">
 
                                                                 @*<iframe src="/api/v3.0/charts/expense_details?expense_id=2266021889&amp;platform=web&amp;height=110" style="margin-top: 5px; width: 100%; height: 110px; border: none; overflow: hidden" scrolling="no"></iframe>*@
-                                                                <a href="#" class="open_charts">View more charts</a>
+                                                                @*<a href="#" class="open_charts">View more charts</a>*@
 
 
                                                                 <div class="comments">
@@ -258,7 +277,7 @@
                         <EditForm Model="e" OnValidSubmit="AddData" Context="abc">
                             <div class="form-group">
                                 <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
-                                                Multiple=true AllowClear=true Placeholder="Select Users" />
+                                                Multiple=true AllowClear=true Placeholder="Select Users" SelectAllText="Select All" />
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Enter a description" @bind="@e.Description" />

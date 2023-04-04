@@ -15,5 +15,7 @@ namespace Income_and_Expense.Data.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         public double Amount { get; set; }
+        [NotMapped]
+        public string SplitName { get; set; }
     }
 }

@@ -28,11 +28,13 @@ namespace Income_and_Expense.Pages
         Expense e = new();
         public IEnumerable<string> valuess = new string[] { };
         public List<Expense> expenseList = new();
+        public List<ManageExpense> manageExpenseList = new();
         public List<SelectListItem> UserList = new();
         public List<SelectListItem> GroupList = new();
         private Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager { get; set; }
         protected override async Task OnInitializedAsync()
         {
+            manageExpenseList = await expenseService.GetAllManageExpenses();
             expenseList = await expenseService.GetAllExpenses();
             UserList = await expenseService.GetAllUsersAsync();
             GroupList = await groupService.GetAllGroupsList();

@@ -50,6 +50,8 @@ namespace Income_and_Expense.Services
         }
         public async Task<bool> AddExpense(Expense expense)
         {
+            expense.Lent = Math.Round( expense.Amount - (expense.Amount / expense.UserIds.Count()));
+
             await context.Expenses.AddAsync(expense);
             List<ManageExpense> ListOfmanageExpense = new();
             foreach (var item in expense.UserIds)
@@ -58,6 +60,7 @@ namespace Income_and_Expense.Services
                 manageExpense.User_Id = item;
                 manageExpense.Expense = expense;
                 manageExpense.Amount = expense.Amount/expense.UserIds.Count();
+                //expense.Lent = expense.Amount - manageExpense.Amount;
                 ListOfmanageExpense.Add(manageExpense);
                 //var lent = expense.Amount - manageExpense.Amount;
             }
@@ -79,6 +82,27 @@ namespace Income_and_Expense.Services
 
 
            
+                return listofExpenses;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+        }
+        public async Task<List<ManageExpense>> GetAllManageExpenses()
+        {
+            try
+            {
+
+                var listofExpenses= await context.ManageExpenses.ToListAsync();
+                foreach (var item in listofExpenses)
+                {
+                    item.SplitName = await GetUserName(item.User_Id);
+                }
+
+
+
                 return listofExpenses;
             }
             catch (Exception e)
