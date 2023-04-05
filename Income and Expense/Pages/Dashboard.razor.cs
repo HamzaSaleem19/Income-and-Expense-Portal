@@ -23,6 +23,7 @@ namespace Income_and_Expense.Pages
         public IEnumerable<string> valuess = new string[] { };
         public List<Expense> expenseList = new();
         public List<ManageExpense> ManageExpenseList = new();
+        public List<ManageExpense> ManageExpenseSum = new();
         public List<SelectListItem> UserList = new();
         public List<SelectListItem> GroupList = new();
         private Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager { get; set; }

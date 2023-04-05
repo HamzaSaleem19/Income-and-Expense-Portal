@@ -75,6 +75,7 @@ namespace Income_and_Expense.Services
             {
 
                 var listofExpenses= await context.Expenses.ToListAsync();
+
                 foreach (var item in listofExpenses)
                 {
                     item.PaidName = await GetUserName(item.Paidby);
@@ -82,7 +83,7 @@ namespace Income_and_Expense.Services
 
 
            
-                return listofExpenses;
+                return listofExpenses.OrderByDescending(x => x.Expense_Id).ToList();
             }
             catch (Exception e)
             {
@@ -94,7 +95,6 @@ namespace Income_and_Expense.Services
         {
             try
             {
-
                 var listofExpenses= await context.ManageExpenses.ToListAsync();
                 foreach (var item in listofExpenses)
                 {
@@ -103,7 +103,7 @@ namespace Income_and_Expense.Services
 
 
 
-                return listofExpenses;
+                return listofExpenses.OrderByDescending(x => x.Id).ToList();
             }
             catch (Exception e)
             {
