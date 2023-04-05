@@ -1,5 +1,6 @@
 ﻿using Income_and_Expense.Data;
 using Income_and_Expense.Data.Models;
+using Income_and_Expense.View_Models;
 using Income_and_Expense.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -95,6 +96,19 @@ namespace Income_and_Expense.Services
         {
             try
             {
+                //AuthenticationState authState = await UserauthenticationStateProvider.GetAuthenticationStateAsync();
+                //ClaimsPrincipal user = authState.User;
+                //var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+                //var manageData = (from exp in context.Expenses
+                //                  join mexp in context.ManageExpenses on exp.Expense_Id equals mexp.Expense_Id
+                //                  where mexp.User_Id == userId
+                //                  select new ManageVM
+                //                  {
+                //                      SplittedName = mexp.SplitName,
+                //                      TotalBalance = exp.Amount, //paidby Total Amount
+                //                      OwedAmount = mexp.Amount,
+
+                //                  }).ToList();
                 var listofExpenses= await context.ManageExpenses.ToListAsync();
                 foreach (var item in listofExpenses)
                 {

@@ -128,11 +128,11 @@
                         childcollapse = childcollapse + newcollapsecount;
                         <div id="accordion">
                             <div class="card">
-                                <div class="card-header d-flex bg-info text-white collapsed" style="height:80px" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
-                                    <div class="mr-auto p-2">@exp.DateTime.ToString("MM-dd-yyyy")<br /> @exp.Category</div>
-                                    <div class="p-2">you paid<br /> @exp.Amount</div>
-                                    <div class="p-2">you lent<br /> @exp.Lent</div>
-                                    <button class="btn btn-sm"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:27px"></i></button>
+                                <div class="card-header d-flex bg-info text-white collapsed" style="height:60px" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
+                                    <div class="mr-auto">@exp.DateTime.ToString("MM-dd-yyyy")<br /> @exp.Category</div>
+                                    <div>you paid<br /> @exp.Amount</div>
+                                    <div class="ml-5 mr-5">you lent<br /> @Math.Round( @exp.Lent)</div>
+                                    <button class="btn btn-sm"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:10px"></i></button>
                                 </div>
                                 <div id="@childcollapse" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                                     <div class="card-body" style="background-color:#F8F8F8">
@@ -255,8 +255,10 @@
                     <div class="modal-body">
                         <EditForm Model="e" OnValidSubmit="AddData" Context="abc">
                             <div class="form-group">
-                                <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
-                                                Multiple=true AllowClear=true Placeholder="Select Users" SelectAllText="Select All" />
+                                @*<RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
+                                                Multiple=true AllowClear=true Placeholder="Select Users" SelectAllText="Select All" />*@
+                                                <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
+                                                Multiple=true AllowClear=true Placeholder="Select Users" Chips=true SelectAllText="Select All" />
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Enter a description" @bind="@e.Description" />
