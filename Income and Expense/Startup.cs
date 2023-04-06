@@ -1,3 +1,4 @@
+using AspNetCore.ReCaptcha;
 using Income_and_Expense.Areas.Identity;
 using Income_and_Expense.Data;
 using Income_and_Expense.Services;
@@ -48,6 +49,7 @@ namespace Income_and_Expense
             services.AddControllersWithViews();
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
+            services.AddReCaptcha(Configuration.GetSection("ReCaptcha"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
