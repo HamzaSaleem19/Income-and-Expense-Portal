@@ -13,6 +13,8 @@ namespace Income_and_Expense.Data.Models
         public string User_Id { get; set; }
         [ForeignKey("User_Id")]
         public ApplicationUser Application { get; set; }
+        [NotMapped]
+        public string UserName { get; set; }
 
 
     }

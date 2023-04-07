@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Income_and_Expense.Services
@@ -59,7 +58,21 @@ namespace Income_and_Expense.Services
         {
             return await groupDbContext.Groupss.ToListAsync();
         }
-
+        public async Task<List<UserGroup>> GetAllUserGroups()
+        {
+            var grouplist= await groupDbContext.UserGroups.ToListAsync();
+            foreach(var item in grouplist)
+            {
+                item.UserName = await GetUserName(item.User_Id);
+            }
+            return grouplist;
+        }
+        public async Task<string> GetUserName(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            var username = (user == null ? "" : user.FirstName + " " + user.LastName);
+            return username;
+        }
         public async Task<Groups> GetGroups(int Id)
         {
             Groups group = await groupDbContext.Groupss.FirstOrDefaultAsync(x => x.Group_Id.Equals(Id));
