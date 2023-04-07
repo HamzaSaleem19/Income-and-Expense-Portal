@@ -1,9 +1,11 @@
 ﻿using Income_and_Expense.Data.Models;
+using Income_and_Expense.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace Income_and_Expense.Pages
@@ -12,6 +14,7 @@ namespace Income_and_Expense.Pages
     {
         Groups g = new();
         public List<Groups> groupobj = new();
+        public List<UserGroup> userGroups = new();
         public List<SelectListItem> grouplist = new();
         public IEnumerable<string> valuess = new string[] { };
 
@@ -19,6 +22,7 @@ namespace Income_and_Expense.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            userGroups = await groupService.GetAllUserGroups();
             groupobj = await groupService.GetAllGroups();
             grouplist = await groupService.GetAllUsers();
         }
