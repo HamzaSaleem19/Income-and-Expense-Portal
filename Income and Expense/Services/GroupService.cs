@@ -13,6 +13,7 @@ namespace Income_and_Expense.Services
     public class GroupService
     {
 
+
         private readonly UserManager<ApplicationUser> userManager;
 
         private readonly ApplicationDbContext groupDbContext;
@@ -31,6 +32,15 @@ namespace Income_and_Expense.Services
                 if (groups.Group_Id == 0)
                 {
                     await groupDbContext.Groupss.AddAsync(groups);
+                    List<UserGroup> groupsList = new List<UserGroup>();
+                    foreach (var item in groups.UserIds)
+                    {
+                        UserGroup ug = new();
+                        ug.Groups = groups;
+                        ug.User_Id = item;
+                        groupsList.Add(ug);
+                    }
+                    await groupDbContext.UserGroups.AddRangeAsync(groupsList);
                 }
                 else
                 {
@@ -49,21 +59,7 @@ namespace Income_and_Expense.Services
         {
             return await groupDbContext.Groupss.ToListAsync();
         }
-        public async Task<List<UserGroup>> GetAllUserGroups()
-        {
-            var grouplist= await groupDbContext.UserGroups.ToListAsync();
-            foreach(var item in grouplist)
-            {
-                item.UserName = await GetUserName(item.User_Id);
-            }
-            return grouplist;
-        }
-        public async Task<string> GetUserName(string userId)
-        {
-            var user = await userManager.FindByIdAsync(userId);
-            var username = (user == null ? "" : user.FirstName + " " + user.LastName);
-            return username;
-        }
+
         public async Task<Groups> GetGroups(int Id)
         {
             Groups group = await groupDbContext.Groupss.FirstOrDefaultAsync(x => x.Group_Id.Equals(Id));
@@ -97,6 +93,7 @@ namespace Income_and_Expense.Services
         }
 
 
+
         public async Task<List<SelectListItem>> GetAllUsers()
         {
             var userslist = await userManager.Users.Select(x =>
@@ -118,98 +115,20 @@ namespace Income_and_Expense.Services
                  }).ToListAsync();
             return grouplist;
         }
-
-
-        //private readonly UserManager<ApplicationUser> userManager;
-
-        //private readonly ApplicationDbContext groupDbContext;
-        //public GroupService(ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager)
-        //{
-        //    groupDbContext = applicationDbContext;
-        //    this.userManager = userManager;
-        //}
-
-
-
-        //public async Task <bool> InsertGroup(Groups groups)
-        //{
-        //    try
-        //    {
-        //        if(groups.Group_Id == 0) 
-        //        {
-        //            await groupDbContext.Groupss.AddAsync(groups);
-        //            List<UserGroup> groupsList = new List<UserGroup>();
-        //            foreach (var item in groups.UserIds)
-        //            {
-        //                UserGroup ug = new();
-        //                ug.Groups = groups;
-        //                ug.User_Id = item;
-        //                groupsList.Add(ug);
-        //            }
-        //            await groupDbContext.UserGroups.AddRangeAsync(groupsList);
-        //        }
-        //        else
-        //        {
-        //            var group = groupDbContext.Groupss.Where(x => x.Group_Id == groups.Group_Id).FirstOrDefault();
-        //        }
-        //        await groupDbContext.SaveChangesAsync();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //}
-
-        //public async Task<List<Groups>> GetAllGroups()
-        //{
-        //    return await groupDbContext.Groupss.ToListAsync();
-        //}
-
-        //public async Task<Groups> GetGroups(int Id)
-        //{
-        //    Groups group = await groupDbContext.Groupss.FirstOrDefaultAsync(x => x.Group_Id.Equals(Id));
-        //    return group;
-        //}
-
-        //public async Task<bool> UpdateGroupsAsync(Groups groups)
-        //{
-        //    try
-        //    {
-        //        await groupDbContext.Groupss.AddAsync(groups);
-        //        await groupDbContext.SaveChangesAsync();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //}
-
-        //public async Task<bool> DeleteGroupsAsync(int Groupid)
-        //{
-        //    var checkgrouprecord = await groupDbContext.Groupss.Where(x => x.Group_Id == Groupid).FirstOrDefaultAsync();
-        //    if (checkgrouprecord != null)
-        //    {
-        //        groupDbContext.Groupss.Remove(checkgrouprecord);
-        //        await groupDbContext.SaveChangesAsync();
-
-        //    }
-        //    return true;
-        //}
-  
-
-
-        //public async Task<List<SelectListItem>> GetAllUsers()
-        //{
-        //    var userslist = await userManager.Users.Select(x =>
-        //         new SelectListItem()
-        //         {
-        //             Value = x.Id,
-        //             Text = x.UserName
-        //         }).ToListAsync();
-        //    return userslist;
-
-        //}
+        public async Task<List<UserGroup>> GetAllUserGroups()
+        {
+            var grouplist = await groupDbContext.UserGroups.ToListAsync();
+            foreach (var item in grouplist)
+            {
+                item.UserName = await GetUserName(item.User_Id);
+            }
+            return grouplist;
+        }
+        public async Task<string> GetUserName(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            var username = (user == null ? "" : user.FirstName + " " + user.LastName);
+            return username;
+        }
     }
 }
