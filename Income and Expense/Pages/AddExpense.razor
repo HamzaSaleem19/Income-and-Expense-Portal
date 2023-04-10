@@ -163,15 +163,7 @@
                                                         <td class="left">
                                                             <table class="shares">
                                                                 <tbody>
-                                                                    <tr class="user">
-                                                                        @*<td class="avatar">
-                                                                <img src="user-128.png" class="img" alt="User avatar">
-                                                                </td>*@
-                                                                        <td>
-
-                                                                            <strong>@exp.PaidName</strong> paid <strong>@exp.Amount</strong>
-                                                                        </td>
-                                                                    </tr>
+                                                                    
 
                                                                     @foreach (var item in manageExpenseList)
                                                                     {
@@ -184,7 +176,7 @@
                                                                                 </td>
                                                                                 <td>
 
-                                                                                    <strong>@item.SplitName</strong> owes <strong>@item.Amount</strong>
+                                                                                    <strong>@item.SplitName</strong> owes <strong>@Math.Round(@item.Amount)</strong>
                                                                                 </td>
                                                                             </tr>
                                                                         }
