@@ -1,25 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System;
-using Income_and_Expense.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using Income_and_Expense.Data;
 using Income_and_Expense.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Income_and_Expense.Apis.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GroupController : ControllerBase
+    public class Group1Controler : ControllerBase
     {
+
         private readonly UserManager<ApplicationUser> userManager;
 
         private readonly ApplicationDbContext groupDbContext;
-        public GroupController(ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager)
+        public Group1Controler(ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager)
         {
 
             groupDbContext = applicationDbContext;
@@ -28,11 +32,10 @@ namespace Income_and_Expense.Apis.Controllers
 
         // GET api/<GroupController>/5
         [HttpGet]
-        [Route("GetAllUserGroups")]
         public async Task<List<UserGroup>> GetAllUserGroups()
         {
             var grouplist = await groupDbContext.UserGroups.ToListAsync();
-            foreach (var item in grouplist)
+            foreach (var item in grouplist) 
             {
                 item.UserName = await GetUserName(item.UserName);
             }
@@ -41,7 +44,6 @@ namespace Income_and_Expense.Apis.Controllers
 
         // GET api/<GroupController>/5
         [HttpGet]
-        [Route("GetUserName")]
         public async Task<String> GetUserName(String UserId)
         {
             var user = await userManager.FindByIdAsync(UserId);
@@ -49,12 +51,9 @@ namespace Income_and_Expense.Apis.Controllers
             return username;
         }
 
-
         // GET api/<GroupController>/5
-        [HttpGet("{id}")]
-        [Route("GetGroups")]
-
-        public async Task<Groups> GetGroups(int Id)
+        [HttpGet ("{id}")]
+        public async Task<Groups>   GetGroups(int Id)
         {
             Groups group = await groupDbContext.Groupss.FirstOrDefaultAsync(x => x.Group_Id.Equals(Id));
             return group;
@@ -62,29 +61,24 @@ namespace Income_and_Expense.Apis.Controllers
 
         // GET: api/<GroupController>
         [HttpGet]
-        [Route("GetAllUsers")]
-
         public async Task<List<SelectListItem>> GetAllUsers()
         {
             var userlist = await userManager.Users.Select(x =>
             new SelectListItem()
             {
                 Value = x.Id,
-                Text = x.UserName
+                Text =x.UserName
             }).ToListAsync();
             return userlist;
         }
-
-
+        
         // POST api/<GroupController>
         [HttpPost]
-        [Route("InsertGroup")]
-
         public async Task<bool> InsertGroup(Groups groups)
         {
             try
             {
-                if (groups.Group_Id == 0)
+                if(groups.Group_Id== 0)
                 {
                     await groupDbContext.Groupss.AddAsync(groups);
                     List<UserGroup> groupslist = new List<UserGroup>();
@@ -95,7 +89,7 @@ namespace Income_and_Expense.Apis.Controllers
                         ug.User_Id = item;
                         groupslist.Add(ug);
                     }
-                    await groupDbContext.UserGroups.AddRangeAsync(groupslist);
+                   await groupDbContext.UserGroups.AddRangeAsync(groupslist);
                 }
                 else
                 {
@@ -109,13 +103,10 @@ namespace Income_and_Expense.Apis.Controllers
                 throw;
             }
         }
-
+       
 
         // PUT api/<GroupController>/5
         [HttpPut("{id}")]
-        [Route("UpdateGroups")]
-
-
         public async Task<bool> UpdateGroups(Groups groups)
         {
             try
@@ -132,21 +123,18 @@ namespace Income_and_Expense.Apis.Controllers
 
         // DELETE api/<GroupController>/5
         [HttpDelete("{id}")]
-        [Route("DeleteGroupsAsync")]
-
         public async Task<bool> DeleteGroupsAsync(int Groupid)
         {
             var checkgrouprecord = await groupDbContext.Groupss.Where(x => x.Group_Id == Groupid).FirstOrDefaultAsync();
-            if (checkgrouprecord != null)
+            if (checkgrouprecord != null) 
             {
                 groupDbContext.Groupss.Remove(checkgrouprecord);
                 await groupDbContext.SaveChangesAsync();
             }
             return true;
         }
-
         [HttpGet]
-        [Route("TestAPI")]
+        [Route("TestAPI2")]
         public async Task<IActionResult> TestAPI() //For Apis testing
         {
             try
