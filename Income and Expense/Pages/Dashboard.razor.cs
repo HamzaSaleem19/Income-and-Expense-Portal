@@ -34,7 +34,7 @@ namespace Income_and_Expense.Pages
         public string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
         protected override async Task OnInitializedAsync()
         {
-            expenseList = await expenseService.GetAllExpenses();
+            var expenseList = await expenseService.GetAllExpenses();
             ManageExpenseList = await expenseService.GetAllManageExpenses();
             UserList = await expenseService.GetAllUsersAsync();
             GroupList = await groupService.GetAllGroupsList();

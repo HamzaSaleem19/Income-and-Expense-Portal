@@ -4,25 +4,20 @@
 @inject NavigationManager NavigationManager
 @using Income_and_Expense.Helpers
 
-<button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal">Add group </button>
-<h1> Groups </h1>
-
-
-
-@*<style>
-    img {
-        border-radius: 30px;
-    }
-</style>*@
-
-
+<div class="content"> 
+    <div class="card">
+        <div class="card-header">
+            <h4>Groups</h4>
+        </div>
+        <div class="card-body">
+<button type="button" class="btn btn-info float-right mb-2" data-toggle="modal" data-target="#exampleModal">Add group </button>
 @if (groupobj is null)
 {
     <p><em>Loading...!</em></p>
 }
 else
 {
-    <table class="table table-hover">
+    <table class="table table-striped table-hover">
         <thead class="bg-info text-light">
             <tr>
                 <th>Sr.No</th>
@@ -49,7 +44,6 @@ else
                         {
                             @if(a.Group_Id == item.Group_Id)
                             {
-                                
                             <p>@item.UserName</p>
                             }
                         }</td>
@@ -65,8 +59,9 @@ else
         </tbody>
     </table>
 }
-
-
+</div>
+    </div>
+</div>
 
 <!--Modal-->
 

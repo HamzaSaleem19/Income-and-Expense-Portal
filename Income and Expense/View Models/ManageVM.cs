@@ -7,5 +7,9 @@
         public double Owe { get; set; }
         public double Amount { get; set; }
         public string SplittedName { get; set; }
+        public string Paidby { get; set; }
+        public string PaidName { get; set; }
+        public int expenseId { get; set; }
+        
     }
 }

@@ -42,8 +42,82 @@
             .balance {
                 margin-left: 20px;
             }
-
+            .img1{
+                height:300px;
+            }
+            .hvr:hover{
+                background-color: #f4f0ec;
+            }
         </style>
+
+        @if(ManageExpenseList.Count == 0)
+        {
+        <div class="card" style="min-height:680px">
+            <div class="card-header">
+                <span class="span1">Dashboard</span>
+                <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
+                <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
+                <hr style="margin-top:10px" />
+
+                <div class="spacing row" style="height:40px">
+                    <div class="col-4 border-right">
+                        <p style="margin:0; padding:0;">total balance</p>
+                        <p class="paragraphColor" style="margin:0; padding:0;">+Rs </p>
+                    </div>
+                    <div class="col-4 border-right">
+                        <p style="margin:0; padding:0;">you owe</p>
+                    </div>
+                    <div class="col-4">
+                        <p style="margin:0; padding:0;">you are owed</p>
+                        <p class="paragraphColor">Rs </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 border-right">
+                        <h5>YOU OWE</h5>
+                    </div>
+                    <div class="col-6 border-left">
+                        <h5 style="text-align:right">YOU ARE OWED</h5>
+
+                        @foreach (var a in ManageExpenseList)
+                        {     
+                            <div class="hvr container mb-3">
+                                <div class="row">
+                                    <div class="col-xs">
+                                        <img class="round" src="user-128.png" />
+                                    </div>
+                                    <div class="col-xs ml-5">
+                                        <span><strong style="font-size:20px">@a.SplitName</strong></span><br /><span style="color:#5bc5a7"> Owes Rs @Math.Round(@a.Amount)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                    <div id="dashboard_balances">
+                        <div style="padding: 10px 15px; position: relative; margin: 20px -15px">
+
+                            <img class="img1" style="position: absolute; top: 0; left: 65px; width: 150px;" src="https://assets.splitwise.com/assets/fat_rabbit/empty-table-effed2a2e610373b6407d746cb95858f5d47329c8610bb70f1fd2040dfa35165.png">
+                            <div style="text-align: left; padding-left: 235px;">
+                                <h3 style="font-size: 28px; line-height: 110%">
+
+                                    You’re all settled up. Awesome!
+
+                                </h3>
+                                <div style="margin-top: 15px; color: #999; font-size: 18px; line-height: 24px">
+                                    To add a new expense, click the orange “Add an expense” button.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+        </div>
+        }
+        else{
         <div class="card" style="min-height:530px">
             <div class="card-header">
                 <span class="span1">Dashboard</span>
@@ -54,7 +128,7 @@
                 <div class="spacing row" style="height:40px">
                     <div class="col-4 border-right">
                         <p style="margin:0; padding:0;">total balance</p>
-                        <p class="paragraphColor" style="margin:0; padding:0;">+Rs @expenseList.Sum(x => x.Amount)</p>
+                        <p class="paragraphColor" style="margin:0; padding:0;">+Rs @Math.Round( @ManageExpenseList.Sum(x => x.Amount))</p>
                     </div>
                     <div class="col-4 border-right">
                         <p style="margin:0; padding:0;">you owe</p>
@@ -75,7 +149,7 @@
 
                         @foreach (var a in ManageExpenseList)
                         {
-                            <div class="container mb-3">
+                            <div class="hvr container mb-3">
                                 <div class="row">
                                     <div class="col-xs">
                                         <img class="round" src="user-128.png" />
@@ -89,28 +163,9 @@
                     </div>
 
                 </div>
-                @if (expenseList == null)
-                {
-                    <div id="dashboard_balances">
-                        <div style="padding: 10px 15px; position: relative; margin: 20px -15px">
-
-                            <img style="position: absolute; top: 0; left: 65px; width: 150px;" src="https://assets.splitwise.com/assets/fat_rabbit/empty-table-effed2a2e610373b6407d746cb95858f5d47329c8610bb70f1fd2040dfa35165.png">
-                            <div style="text-align: left; padding-left: 235px;">
-                                <h3 style="font-size: 28px; line-height: 110%">
-
-                                    You’re all settled up. Awesome!
-
-                                </h3>
-                                <div style="margin-top: 15px; color: #999; font-size: 18px; line-height: 24px">
-                                    To add a new expense, click the orange “Add an expense” button.
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                }
             </div>
         </div>
+        }
 
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -144,12 +199,6 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-
-                            <div class="form-group">
-                                <select DefaultText="Select Company" class="form-control">
-                                    <option>Solochoicez</option>
-                                </select>
-                            </div> 
                             <div class="form-group">
                                 <select class="form-select form-control" aria-label="Default select example" @bind="@e.Paidby">
                                     <option value="0">Paid by</option>
@@ -171,9 +220,9 @@
                                     }
                                 </select>
                             </div>
-                            <div class="form-group">
+                           @* <div class="form-group">
                                 <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7">Equally</button>
-                            </div>
+                            </div>*@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Cancel</button>

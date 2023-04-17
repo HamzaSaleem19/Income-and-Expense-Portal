@@ -77,10 +77,13 @@
                 border-radius: 30px;
                 background-color: orange;
             }
+            .head:hover{
+                color:red;
+            }
         </style>
-        @if (expenseList == null)
+        @if (expenseList.Count == 0)
         {
-            <div class="card" style="min-height:600px;">
+            <div class="card" style="min-height:680px;">
                 <div class="card-header">
                     <span class="span1">All expenses</span>
                     <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
@@ -107,7 +110,7 @@
                 </div>
             </div>
         }
-        @if (expenseList != null)
+        else
         {
             <div class="card">
                 <div class="card-header">
@@ -132,7 +135,7 @@
                                     <div class="mr-auto">@exp.DateTime.ToString("MM-dd-yyyy")<br /> @exp.Category</div>
                                     <div>you paid<br /> @exp.Amount</div>
                                     <div class="ml-5 mr-5">you lent<br /> @Math.Round( @exp.Lent)</div>
-                                    <button class="btn btn-sm" @onclick="()=>DeleteExpense(exp.Expense_Id)"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:10px"></i></button>
+                                    <button class="btn btn-sm" @onclick="()=>DeleteExpense(exp.Expense_Id)"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:10px;"></i></button>
                                 </div>
                                 <div id="@childcollapse" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                                     <div class="card-body" style="background-color:#F8F8F8">

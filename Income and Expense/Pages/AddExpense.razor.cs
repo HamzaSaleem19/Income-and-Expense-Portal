@@ -35,7 +35,8 @@ namespace Income_and_Expense.Pages
         protected override async Task OnInitializedAsync()
         {
             manageExpenseList = await expenseService.GetAllManageExpenses();
-            expenseList = await expenseService.GetAllExpenses();
+            //expenseList = await expenseService.GetAllExpenses();
+            var list = await expenseService.GetAllExpenses();
             UserList = await expenseService.GetAllUsersAsync();
             GroupList = await groupService.GetAllGroupsList();
         }
