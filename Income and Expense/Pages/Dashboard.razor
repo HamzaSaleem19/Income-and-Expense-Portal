@@ -118,7 +118,7 @@
         </div>
         }
         else{
-        <div class="card" style="min-height:530px">
+        <div class="card min-vh-100">
             <div class="card-header">
                 <span class="span1">Dashboard</span>
                 <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
@@ -135,7 +135,7 @@
                     </div>
                     <div class="col-4">
                         <p style="margin:0; padding:0;">you are owed</p>
-                        <p class="paragraphColor">Rs @expenseList.Sum(x => x.Amount)</p>
+                        <p class="paragraphColor">Rs @expenseList.Sum(x => x.amount)</p>
                     </div>
                 </div>
             </div>
@@ -143,10 +143,22 @@
                 <div class="row">
                     <div class="col-6 border-right">
                         <h5>YOU OWE</h5>
+                            @*@foreach (var a in expenseList)
+                            {
+                                <div class="hvr container mb-3">
+                                    <div class="row">
+                                        <div class="col-xs">
+                                            <img class="round" src="user-128.png" />
+                                        </div>
+                                        <div class="col-xs ml-5">
+                                            <span><strong style="font-size:20px">@a.SplittedName</strong></span><br /><span style="color:#5bc5a7">you owe Rs @Math.Round(@a.amount)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }*@
                     </div>
                     <div class="col-6 border-left">
                         <h5 style="text-align:right">YOU ARE OWED</h5>
-
                         @foreach (var a in ManageExpenseList)
                         {
                             <div class="hvr container mb-3">

@@ -86,7 +86,28 @@ namespace Income_and_Expense.Services
                                   {
                                       TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == e.Expense_Id && x.User_Id != userId).Select(x => x.Amount).Sum(),
                                       Paidby = e.Paidby,
-                                      expenseId = e.Expense_Id
+                                      expenseId = e.Expense_Id,
+                                      splitName= em.SplitName,
+                                      amount = e.Amount,
+                                      category = e.Category,
+                                      dateTime = e.DateTime,
+                                      lent = e.Lent,
+
+
+
+
+                                  }).ToList();
+                var managelistleft = (from e in context.Expenses
+                                  join em in context.ManageExpenses on e.Expense_Id equals em.Expense_Id
+                                  where e.Paidby != userId && em.User_Id != userId
+
+                                  select new ManageVM
+                                  {
+                                      TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == e.Expense_Id && x.User_Id != userId).Select(x => x.Amount).Sum(),
+                                      Paidby = e.Paidby,
+                                      expenseId = e.Expense_Id,
+                                      splitName = em.SplitName,
+                                      amount = e.Amount,
 
                                   }).ToList();
 

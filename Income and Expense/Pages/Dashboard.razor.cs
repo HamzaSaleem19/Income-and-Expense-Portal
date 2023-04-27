@@ -1,6 +1,7 @@
 ﻿using Income_and_Expense.Data;
 using Income_and_Expense.Data.Models;
 using Income_and_Expense.Services;
+using Income_and_Expense.View_Models;
 using Income_and_Expense.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,7 +22,7 @@ namespace Income_and_Expense.Pages
         public NavigationManager NavigationManager { get; set; }
         Expense e = new();
         public IEnumerable<string> valuess = new string[] { };
-        public List<Expense> expenseList = new();
+        public List<ManageVM> expenseList = new();
         public List<ManageExpense> ManageExpenseList = new();
         public List<ManageExpense> ManageExpenseSum = new();
         public List<SelectListItem> UserList = new();
@@ -34,7 +35,7 @@ namespace Income_and_Expense.Pages
         public string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
         protected override async Task OnInitializedAsync()
         {
-            var expenseList = await expenseService.GetAllExpenses();
+            expenseList = await expenseService.GetAllExpenses();
             ManageExpenseList = await expenseService.GetAllManageExpenses();
             UserList = await expenseService.GetAllUsersAsync();
             GroupList = await groupService.GetAllGroupsList();
