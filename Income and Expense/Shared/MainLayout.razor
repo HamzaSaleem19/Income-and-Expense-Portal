@@ -1,23 +1,52 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<div class="page overflow-hidden">
 
-    <div class="main">
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+
+    <div class="main  vh-100">
+
+        <div class="top-row d-flex" style="height:40px; background:#5bc5a7; text-shadow:#318970;">
+            <a class="mr-auto p-2 ml-5" href="/">
+                <img class="ml-2" style="width:100px;" src="https://assets.splitwise.com/assets/core/logo-wordmark-horizontal-white-short-c309b91b96261a8a993563bdadcf22a89f00ebb260f4f04fd814c2249a6e05d4.svg">
+            </a>
+            <AuthorizeView>
+                <Authorized>
+
+
+                    <div class="dropdown">
+                        <button class="d1 btn dropdown-toggle text-white mr-5" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @context.User.Identity.Name
+                        </button>
+                        <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Your account</a>
+                            <a class="dropdown-item" href="#">Create a group</a>
+                            <a class="dropdown-item" href="#">Fairness calculators</a>
+                            <a class="dropdown-item" href="#">Contact Support</a>
+                            <a class="dropdown-item" href="Identity/Account/LogOut">Log out</a>
+                        </div>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
         </div>
 
-        <div class="content px-4">
-            @Body
+
+        <div class="row">
+            <div class="col-3">
+                <div class="sidebar">
+                    <NavMenu />
+                </div>
+            </div>
+            <div class="shadow col-6 border-left border-right bg-white">
+                @Body
+            </div>
         </div>
     </div>
 </div>
 <style>
     .sidebar {
-    background-color: #239B56;
-}
+        background-color: #239B56;
+    }
 </style>
+@code {
+
+}
