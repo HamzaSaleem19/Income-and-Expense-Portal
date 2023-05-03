@@ -17,6 +17,12 @@ namespace Income_and_Expense.Pages
         public List<UserGroup> userGroups = new();
         public List<SelectListItem> grouplist = new();
         public IEnumerable<string> valuess = new string[] { };
+        Expense e = new();
+        public List<SelectListItem> UserList = new();
+        public List<SelectListItem> UserListG = new();
+        public List<SelectListItem> GroupList = new();
+        [Inject]
+        public ExpenseService expenseService { get; set; }
 
 
 
@@ -25,6 +31,8 @@ namespace Income_and_Expense.Pages
             userGroups = await groupService.GetAllUserGroups();
             groupobj = await groupService.GetAllGroups();
             grouplist = await groupService.GetAllUsers();
+            UserList = await expenseService.GetAllUsersAsync();
+            GroupList = await groupService.GetAllGroupsList();
         }
 
 
@@ -69,5 +77,19 @@ namespace Income_and_Expense.Pages
             NavigationManager.NavigateTo("/AddGroup", true);
         }
 
+        public async Task AddExpenseData()
+        {
+            e.UserIds = valuess.ToArray();
+            await expenseService.AddExpense(e);
+            NavigationManager.NavigateTo("/", true);
+        }
+
+        public async void Getusersgroupwise(int? groupid)
+        {
+            UserListG = new();
+            e.Group_Id = groupid;
+            UserListG = await groupService.GetUserbygroupid(groupid);
+            StateHasChanged();
+        }
     }
 }

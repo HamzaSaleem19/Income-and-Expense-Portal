@@ -125,9 +125,9 @@
                     <div class="modal-body">
                         <EditForm Model="e" OnValidSubmit="AddData" Context="abc">
                             <div class="form-group">
-                                @* <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
-                                Multiple=true AllowClear=true Placeholder="Select Users" SelectAllText="Select All" />*@
-                                <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
+                                @*<RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
+                                                Multiple=true AllowClear=true Placeholder="Select Users" SelectAllText="Select All" />*@
+                                                <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
                                                 Multiple=true AllowClear=true Placeholder="Select Users" Chips=true SelectAllText="Select All" />
                             </div>
                             <div class="form-group">
@@ -144,12 +144,6 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-
-                            <div class="form-group">
-                                <select DefaultText="Select Company" class="form-control">
-                                    <option>Solochoicez</option>
-                                </select>
-                            </div> 
                             <div class="form-group">
                                 <select class="form-select form-control" aria-label="Default select example" @bind="@e.Paidby">
                                     <option value="0">Paid by</option>
@@ -162,7 +156,7 @@
                             <div class="form-group">
                                 <input type="date" class="form-control" id="" placeholder="Enter Date of Activity" @bind="e.DateTime">
                             </div>
-                            <div class="form-group">
+                           @* <div class="form-group">
                                 <select class="form-select form-control" aria-label="Default select example" @bind="@e.Group_Id">
                                     <option value="0">select Group</option>
                                     @foreach (var g in GroupList)
@@ -170,12 +164,13 @@
                                         <option value="@g.Value">@g.Text</option>
                                     }
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7">Equally</button>
-                            </div>
+                            </div>*@
+                           @* <div class="form-group">
+                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3">Equally</button>
+                            </div>*@
 
                             <div class="modal-footer">
+                                <p>*Amount atomatically divided equally between  selected users.</p>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@Cancel">Cancel</button>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>

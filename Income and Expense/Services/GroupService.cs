@@ -1,5 +1,6 @@
 ﻿using Income_and_Expense.Data;
 using Income_and_Expense.Data.Models;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +13,6 @@ namespace Income_and_Expense.Services
 {
     public class GroupService
     {
-
-
         private readonly UserManager<ApplicationUser> userManager;
 
         private readonly ApplicationDbContext groupDbContext;
@@ -22,7 +21,6 @@ namespace Income_and_Expense.Services
             groupDbContext = applicationDbContext;
             this.userManager = userManager;
         }
-
 
 
         public async Task<bool> InsertGroup(Groups groups)
@@ -129,6 +127,11 @@ namespace Income_and_Expense.Services
             var user = await userManager.FindByIdAsync(userId);
             var username = (user == null ? "" : user.FirstName + " " + user.LastName);
             return username;
+        }
+        public async Task<List<SelectListItem>> GetUserbygroupid(int? groupid)
+        {
+            return await groupDbContext.UserGroups.Where(x => x.Group_Id == groupid).Select(x => new SelectListItem()
+            { Value = x.User_Id, Text = x.UserName }).ToListAsync();
         }
     }
 }
