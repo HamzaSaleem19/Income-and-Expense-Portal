@@ -80,7 +80,7 @@ namespace Income_and_Expense.Services
                 var listofExpenses= await context.ManageExpenses.ToListAsync();
                 var managelist = (from e in context.Expenses
                                   join em in context.ManageExpenses on e.Expense_Id equals em.Expense_Id
-                                  where e.Paidby == userId && em.User_Id != userId
+                                  where e.Paidby == userId && em.User_Id == userId
 
                                   select new ManageVM
                                   {
@@ -97,19 +97,19 @@ namespace Income_and_Expense.Services
 
 
                                   }).ToList();
-                var managelistleft = (from e in context.Expenses
-                                  join em in context.ManageExpenses on e.Expense_Id equals em.Expense_Id
-                                  where e.Paidby != userId && em.User_Id != userId
+                //var managelistleft = (from e in context.Expenses
+                //                  join em in context.ManageExpenses on e.Expense_Id equals em.Expense_Id
+                //                  where e.Paidby != userId && em.User_Id != userId
 
-                                  select new ManageVM
-                                  {
-                                      TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == e.Expense_Id && x.User_Id != userId).Select(x => x.Amount).Sum(),
-                                      Paidby = e.Paidby,
-                                      expenseId = e.Expense_Id,
-                                      splitName = em.SplitName,
-                                      amount = e.Amount,
+                //                  select new ManageVM
+                //                  {
+                //                      TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == e.Expense_Id && x.User_Id != userId).Select(x => x.Amount).Sum(),
+                //                      Paidby = e.Paidby,
+                //                      expenseId = e.Expense_Id,
+                //                      splitName = em.SplitName,
+                //                      amount = e.Amount,
 
-                                  }).ToList();
+                //                  }).ToList();
 
                 foreach (var item in managelist)
                 {
