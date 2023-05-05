@@ -155,7 +155,7 @@
                                                                 <br />
                                                                 <strong>@exp.PaidName</strong> paid: <strong>Rs.@exp.amount</strong>
                                                                 <br>
-                                                                <a data-toggle="modal" href="#add_bill" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
+                                                                <a data-toggle="modal" href="#" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
                                                                     Edit expense
                                                                 </a>
                                                             </div>
@@ -168,7 +168,10 @@
                                                                 <tbody>
                                                                     
 
-
+                                                                    @foreach (var item in manageExpenseList)
+                                                                    {
+                                                                        @if (exp.expenseId == item.Expense_Id)
+                                                                        {
 
                                                                             <tr class="user">
                                                                                 <td class="avatar">
@@ -176,10 +179,11 @@
                                                                                 </td>
                                                                                 <td>
 
-                                                                                    <strong>@exp.splitName</strong> owes <strong>@Math.Round(@exp.amount)</strong>
+                                                                                    <strong>@item.SplitName</strong> owes <strong>@Math.Round(@item.Amount)</strong>
                                                                                 </td>
                                                                             </tr>
-
+                                                                        }
+                                                                    }
                                                                     @*<tr class="user">
                                                             <td class="avatar">
                                                             <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" class="avatar" alt="User avatar">
