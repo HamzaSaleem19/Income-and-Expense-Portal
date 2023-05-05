@@ -168,10 +168,7 @@
                                                                 <tbody>
                                                                     
 
-                                                                    @foreach (var item in manageExpenseList)
-                                                                    {
-                                                                        @if (exp.expenseId == item.Expense_Id)
-                                                                        {
+
 
                                                                             <tr class="user">
                                                                                 <td class="avatar">
@@ -179,11 +176,10 @@
                                                                                 </td>
                                                                                 <td>
 
-                                                                                    <strong>@item.SplitName</strong> owes <strong>@Math.Round(@item.Amount)</strong>
+                                                                                    <strong>@exp.splitName</strong> owes <strong>@Math.Round(@exp.amount)</strong>
                                                                                 </td>
                                                                             </tr>
-                                                                        }
-                                                                    }
+
                                                                     @*<tr class="user">
                                                             <td class="avatar">
                                                             <img src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-orange25-100px.png" class="avatar" alt="User avatar">
