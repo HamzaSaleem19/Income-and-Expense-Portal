@@ -17,7 +17,7 @@ namespace Income_and_Expense.Data.Models
        
         public double Lent { get; set; }
         public string Image { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Now;
         public int? Group_Id { get; set; } //FK
         [ForeignKey("Group_Id")]
         public Groups Group { get; set; }
