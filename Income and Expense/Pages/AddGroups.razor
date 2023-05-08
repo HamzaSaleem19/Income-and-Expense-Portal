@@ -4,75 +4,72 @@
 @inject NavigationManager NavigationManager
 @using Income_and_Expense.Helpers
 
-<div class="content"> 
+<div class="content">
     <div class="card">
         <div class="card-header">
-            <h4>Groups</h4>
+            <span style="font-size:30px">Groups</span>
+            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal">Add Group </button>
+            <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal1">Add Group Expense</button>
+
         </div>
         <div class="card-body">
-<button type="button" class="btn btn-info float-right mb-2" data-toggle="modal" data-target="#exampleModal">Add group </button>
-<button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal">Add Group </button>
- <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal1">Add Group Expense</button>
-<h1> Groups </h1>
-
-
-
-@*<style>
-    img {
-        border-radius: 30px;
-    }
-</style>*@
-
-
-@if (groupobj is null)
-{
-    <p><em>Loading...!</em></p>
-}
-else
-{
-    <table class="table table-striped table-hover">
-        <thead class="bg-info text-light">
-            <tr>
-                <th>Sr.No</th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Users</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-               var sNo = 0;
+            @*<style>
+            img {
+            border-radius: 30px;
             }
-            @foreach (var a in groupobj)
+            </style>*@
+
+
+            @if (groupobj is null)
             {
-                sNo++;
-                <tr>
-                    <td>@sNo</td>
-                    <td>@a.Group_Name</td>
-                    <td>@a.Group_Type</td>
-                    
-                    <td>
-                        @foreach (var item in userGroups)
-                        {
-                            @if(a.Group_Id == item.Group_Id)
-                            {
-                            <p>@item.UserName</p>
-                            }
-                        }</td>
-                    <td>
-                        <span>
-                          <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal" @onclick="()=>UpdateGroup(a.Group_Id)"><i class="fa fa-edit"></i></button>
-                          <button type="button" class="btn btn-danger btn-sm" @onclick="()=>DeleteGroup(a.Group_Id)"> <i class="fa fa-trash"></i> </button>
-                        </span>
-                    </td>
-                </tr>
+                <p><em>Loading...!</em></p>
             }
+            else
+            {
+                <table class="table table-striped table-hover">
+                    <thead class="bg-info text-light">
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Users</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var sNo = 0;
+                        }
+                        @foreach (var a in groupobj)
+                        {
+                            sNo++;
+                            <tr>
+                                <td>@sNo</td>
+                                <td>@a.Group_Name</td>
+                                <td>@a.Group_Type</td>
 
-        </tbody>
-    </table>
-}
-</div>
+                                <td>
+                                    @foreach (var item in userGroups)
+                                    {
+                                        @if (a.Group_Id == item.Group_Id)
+                                        {
+                                            <p>@item.UserName</p>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <span>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal" @onclick="()=>UpdateGroup(a.Group_Id)"><i class="fa fa-edit"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm" @onclick="()=>DeleteGroup(a.Group_Id)"> <i class="fa fa-trash"></i> </button>
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+        </div>
     </div>
 </div>
 
@@ -95,8 +92,8 @@ else
                             <div class="form-group">
                                 <label for="Name" class="control-label">Group Name</label>
                                 <input form="Name" class="form-control" placeholder="Group Name" @bind="g.Group_Name" />
-                                <ValidationMessage For="@(()=> g.Group_Name)" /> 
-                                    <br/>
+                                <ValidationMessage For="@(()=> g.Group_Name)" />
+                                <br />
                                 <div class="form-group">
                                     <label>Group Type</label>
                                     <div>
@@ -109,18 +106,18 @@ else
                                         </select>
                                     </div>
                                 </div>
-                                    <div class="form-group">
-                                        <label>Group user</label>
+                                <div class="form-group">
+                                    <label>Group user</label>
                                     <div>
                                         <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@grouplist TextProperty="Text" ValueProperty="Value"
-                                                    Multiple=true AllowClear=true Placeholder="Select Users" Chips=true
+                                                        Multiple=true AllowClear=true Placeholder="Select Users" Chips=true
                                                         MaxSelectedLabels="3" SelectAllText="Select all" SelectedItemsText="item selected" />
                                     </div>
-                                    </div>
                                 </div>
+                            </div>
                         </div>
 
-                        <input type="submit" class="btn btn-success ml-3" value="Save"/>
+                        <input type="submit" class="btn btn-success ml-3" value="Save" />
                         <input type="button" class="btn btn-secondary float-md-right ml-2" @onclick="@cancel" data-dismiss="modal" value="Cancel" />
 
                     </div>
@@ -131,75 +128,75 @@ else
     </div>
 </div>
 
- <!-- Modal add group expense -->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-info text-black">
-                        <h5 class="modal-title text-white" id="exampleModalLabel">Add an expense</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+<!-- Modal add group expense -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-black">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Add an expense</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="e" OnValidSubmit="AddExpenseData" Context="abc">
+                    <div class="form-group">
+                        <InputSelect class="form-control" ValueExpression="@(() => e.Group_Id)" Value="@e.Group_Id" ValueChanged="@((int? value) => Getusersgroupwise(value))">
+                            <option value="0">-- Select group --</option>
+                            @foreach (var g in GroupList)
+                            {
+                                <option value="@g.Value">@g.Text</option>
+                            }
+                        </InputSelect>
                     </div>
-                    <div class="modal-body">
-                        <EditForm Model="e" OnValidSubmit="AddExpenseData" Context="abc">
-                              <div class="form-group">
-                                 <InputSelect class="form-control"  ValueExpression="@(() => e.Group_Id)" Value="@e.Group_Id" ValueChanged="@((int? value) => Getusersgroupwise(value))">
-                                    <option value="0">-- Select group --</option>
-                                    @foreach (var g in GroupList)
-                                    {
-                                        <option value="@g.Value">@g.Text</option>
-                                    }
-                                </InputSelect>
-                            </div>
-                             <div class="form-group">
-                                @*<InputSelect @bind-Value="@e.UserIds" class="form-control">
-                                    <option value="0">-- Select user --</option>
-                                    @foreach (var u in UserListG)
-                                    {
-                                           <option value="@u.Value">@u.Text</option> 
-                                    }
-                                </InputSelect>*@
-                                 <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserListG TextProperty="Text" ValueProperty="Value"
-                                                Multiple=true AllowClear=true Placeholder="Select Users" Chips=true SelectAllText="Select All"/>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Enter a description" @bind="@e.Description" />
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Rs 0.00" @bind="@e.Amount" />
-                            </div>
-                            <div class="form-group">
-                                <select DefaultText="Select Category" class="form-control" @bind="@e.Category">
-                                    <option>Category</option>
-                                    <option value="Food">Food</option>
-                                    <option value="Drink">Drink</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="form-select form-control" aria-label="Default select example" @bind="@e.Paidby">
-                                    <option value="0">Paid by</option>
-                                    @foreach (var u in UserList)
-                                    {
-                                        <option value="@u.Value">@u.Text</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="date" class="form-control" id="" placeholder="Enter Date of Activity" @bind="e.DateTime">
-                            </div>
-                           @* <div class="form-group">
-                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3">Equally</button>
-                            </div>*@
+                    <div class="form-group">
+                        @*<InputSelect @bind-Value="@e.UserIds" class="form-control">
+                        <option value="0">-- Select user --</option>
+                        @foreach (var u in UserListG)
+                        {
+                        <option value="@u.Value">@u.Text</option>
+                        }
+                        </InputSelect>*@
+                        <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserListG TextProperty="Text" ValueProperty="Value"
+                                        Multiple=true AllowClear=true Placeholder="Select Users" Chips=true SelectAllText="Select All" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Enter a description" @bind="@e.Description" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Rs 0.00" @bind="@e.Amount" />
+                    </div>
+                    <div class="form-group">
+                        <select DefaultText="Select Category" class="form-control" @bind="@e.Category">
+                            <option>Category</option>
+                            <option value="Food">Food</option>
+                            <option value="Drink">Drink</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-select form-control" aria-label="Default select example" @bind="@e.Paidby">
+                            <option value="0">Paid by</option>
+                            @foreach (var u in UserList)
+                            {
+                                <option value="@u.Value">@u.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" class="form-control" id="" placeholder="Enter Date of Activity" @bind="e.DateTime">
+                    </div>
+                    @* <div class="form-group">
+                    <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3">Equally</button>
+                    </div>*@
 
-                            <div class="modal-footer">
-                                <p>*Amount atomatically divided equally between  group members.</p>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@cancel">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </EditForm>
+                    <div class="modal-footer">
+                        <p>*Amount atomatically divided equally between  group members.</p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
-                </div>
+                </EditForm>
             </div>
         </div>
+    </div>
+</div>
