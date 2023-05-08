@@ -453,6 +453,19 @@
         <script type="module">
             import "motel"
         </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+    <script>
+        function validateRecaptcha() {
+            var response = grecaptcha.getResponse();
+            if (response.length == 0) {
+                alert("Please complete the reCAPTCHA.");
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
     </head>
 
 
@@ -499,15 +512,15 @@
                                 <input asp-for="Input.Password" type="password" class="form-control   form-control-lg" placeholder="Password"/>
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
-                            <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+                            
+                            
+                        <div class="g-recaptcha" data-sitekey="6LcWkO8lAAAAANKofIIhsobTMgsvfa578djlus0H"></div>
 
-                        @Html.ReCaptcha()
-                        <recaptcha asp-for="Input.captcha" />
-                        @*<span asp-validation-for="Input.captcha" class="text-danger"></span>*@
-                       
-                      @*  @Html.ReCaptcha()
-                        <recaptcha asp-for="Input.captcha" />*@
-                        
+                        @*<label asp-for="CaptchaResponse"></label>
+                        <div>
+                            <recaptcha asp-for="CaptchaResponse"></recaptcha>
+                            <span asp-validation-for="CaptchaResponse" class="text-danger"></span>
+                        </div>*@
 
                        
 
@@ -531,7 +544,7 @@
                                 <input value="ed578d3e-da9c-4bc2-8bc7-236d71b45d31" autocomplete="off" type="hidden" name="sequence[token]" id="sequence_token"/>
                             </div>
                             <div class="py-4">
-                                <input type="submit" name="commit" value="Log in" class="cta-button block font-mont rounded bg-teal-darker text-white shadow px-4 py-2 text-center w-full"/>
+                            <input type="submit" name="commit" onclick="return validateRecaptcha()" value="Log in" class="cta-button block font-mont rounded bg-teal-darker text-white shadow px-4 py-2 text-center w-full" />
                             </div>
                         </form>
                         <a class="block text-center font-mont font-semibold text-teal-darker py-2" href="">Forgot your password?</a>

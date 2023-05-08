@@ -1,6 +1,7 @@
 using AspNetCore.ReCaptcha;
 using Income_and_Expense.Areas.Identity;
 using Income_and_Expense.Data;
+using Income_and_Expense.Data.Models;
 using Income_and_Expense.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -50,11 +51,15 @@ namespace Income_and_Expense
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
             services.AddReCaptcha(Configuration.GetSection("ReCaptcha"));
+            services.Configure<RecaptchaSettings>(Configuration.GetSection("RecaptchaSettings"));
+            services.AddHttpClient();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
