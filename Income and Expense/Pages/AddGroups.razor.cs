@@ -64,9 +64,11 @@ namespace Income_and_Expense.Pages
 
         public async Task AddData()
         {
+          
             g.UserIds = valuess.ToArray();
             await groupService.InsertGroup(g);
             NavigationManager.NavigateTo("/AddGroup", true);
+ 
         }
 
     }

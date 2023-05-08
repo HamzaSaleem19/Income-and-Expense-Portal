@@ -14,16 +14,17 @@ namespace Income_and_Expense.Services
     {
 
 
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly EmailblazorService _emailblazorService;
 
         private readonly ApplicationDbContext groupDbContext;
-        public GroupService(ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager)
+        public GroupService(ApplicationDbContext applicationDbContext,EmailblazorService emailblazorService, UserManager<ApplicationUser> userManager)
         {
             groupDbContext = applicationDbContext;
-            this.userManager = userManager;
+            _userManager = userManager;
+            _emailblazorService = emailblazorService;    
+
         }
-
-
 
         public async Task<bool> InsertGroup(Groups groups)
         {
@@ -31,6 +32,7 @@ namespace Income_and_Expense.Services
             {
                 if (groups.Group_Id == 0)
                 {
+                    
                     await groupDbContext.Groupss.AddAsync(groups);
                     List<UserGroup> groupsList = new List<UserGroup>();
                     foreach (var item in groups.UserIds)
@@ -38,6 +40,10 @@ namespace Income_and_Expense.Services
                         UserGroup ug = new();
                         ug.Groups = groups;
                         ug.User_Id = item;
+                        var userEmail = GetEmail(item);
+                        EmailDTO emailDto = new EmailDTO();
+                        emailDto.To = userEmail.Result.ToString();
+                        _emailblazorService.SendEmail(emailDto);
                         groupsList.Add(ug);
                     }
                     await groupDbContext.UserGroups.AddRangeAsync(groupsList);
@@ -96,7 +102,7 @@ namespace Income_and_Expense.Services
 
         public async Task<List<SelectListItem>> GetAllUsers()
         {
-            var userslist = await userManager.Users.Select(x =>
+            var userslist = await _userManager.Users.Select(x =>
                  new SelectListItem()
                  {
                      Value = x.Id,
@@ -126,9 +132,16 @@ namespace Income_and_Expense.Services
         }
         public async Task<string> GetUserName(string userId)
         {
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             var username = (user == null ? "" : user.FirstName + " " + user.LastName);
             return username;
+        }
+        public  async Task<string> GetEmail(string userId)
+        {
+            var user =  await _userManager.FindByIdAsync(userId);
+            var userEmail = user.Email;
+            return userEmail;
+
         }
     }
 }
