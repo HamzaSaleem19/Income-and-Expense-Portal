@@ -56,9 +56,9 @@ namespace Income_and_Expense.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
-            [Required]
-            [NotMapped]
-            public bool captcha { get; set; }
+            //[NotMapped]
+            //[Required(ErrorMessage = "The captcha field is required.")]
+            //public string captcha { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
