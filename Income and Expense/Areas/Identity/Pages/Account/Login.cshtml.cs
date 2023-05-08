@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -55,6 +56,9 @@ namespace Income_and_Expense.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+            [Required]
+            [NotMapped]
+            public bool captcha { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)

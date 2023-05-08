@@ -77,10 +77,13 @@
                 border-radius: 30px;
                 background-color: orange;
             }
+            .head:hover{
+                color:red;
+            }
         </style>
-        @if (expenseList == null)
+        @if (expenseList.Count == 0)
         {
-            <div class="card" style="min-height:600px;">
+            <div class="card" style="min-height:680px;">
                 <div class="card-header">
                     <span class="span1">All expenses</span>
                     <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
@@ -107,7 +110,7 @@
                 </div>
             </div>
         }
-        @if (expenseList != null)
+        else
         {
             <div class="card">
                 <div class="card-header">
@@ -129,10 +132,10 @@
                         <div id="accordion">
                             <div class="card">
                                 <div class="card-header d-flex bg-info text-white collapsed" style="height:60px" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
-                                    <div class="mr-auto">@exp.DateTime.ToString("MM-dd-yyyy")<br /> @exp.Category</div>
-                                    <div>you paid<br /> @exp.Amount</div>
-                                    <div class="ml-5 mr-5">you lent<br /> @Math.Round( @exp.Lent)</div>
-                                    <button class="btn btn-sm" @onclick="()=>DeleteExpense(exp.Expense_Id)"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:10px"></i></button>
+                                    <div class="mr-auto">@exp.dateTime.ToString("MM-dd-yyyy")<br /> @exp.category</div>
+                                    <div>you paid<br /> @exp.amount</div>
+                                    <div class="ml-5 mr-5">you lent<br /> @Math.Round( @exp.lent)</div>
+                                    <button class="btn btn-sm" @onclick="()=>DeleteExpense(exp.expenseId)"><i class="delete1 fa fa-remove align-content-center" style="color:white; padding:10px;"></i></button>
                                 </div>
                                 <div id="@childcollapse" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                                     <div class="card-body" style="background-color:#F8F8F8">
@@ -142,17 +145,17 @@
                                                     <tr>
                                                         <td colspan="2">
                                                             <img src="https://s3.amazonaws.com/splitwise/uploads/category/icon/square_v2/uncategorized/general@2x.png" class="category" title="General" alt="General">
-                                                            <h3 class="ml-3">@exp.Category</h3>
+                                                            <h3 class="ml-3">@exp.category</h3>
                                                             <div class="cost">
-                                                                Rs @exp.Amount
+                                                                Rs @exp.amount
                                                             </div>
                                                             <div class="creation_info">
 
-                                                                Added by <strong>@exp.PaidName</strong> on @exp.DateTime.ToString("MM-dd-yyyy")
+                                                                Added by <strong>@exp.PaidName</strong> on @exp.dateTime.ToString("MM-dd-yyyy")
                                                                 <br />
-                                                                <strong>@exp.PaidName</strong> paid: <strong>Rs.@exp.Amount</strong>
+                                                                <strong>@exp.PaidName</strong> paid: <strong>Rs.@exp.amount</strong>
                                                                 <br>
-                                                                <a data-toggle="modal" href="#add_bill" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
+                                                                <a data-toggle="modal" href="#" data-expense-id="2266021889" class="btn btn-mini btn-orange ml-5">
                                                                     Edit expense
                                                                 </a>
                                                             </div>
@@ -167,7 +170,7 @@
 
                                                                     @foreach (var item in manageExpenseList)
                                                                     {
-                                                                        @if (exp.Expense_Id == item.Expense_Id)
+                                                                        @if (exp.expenseId == item.Expense_Id)
                                                                         {
 
                                                                             <tr class="user">
