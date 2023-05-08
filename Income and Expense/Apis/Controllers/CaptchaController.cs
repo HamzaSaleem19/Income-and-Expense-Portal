@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCore.ReCaptcha;
+using Income_and_Expense.Areas.Identity.Pages.Account;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -9,41 +11,15 @@ namespace Income_and_Expense.Apis.Controllers
 {
     public class CaptchaController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
+        [ValidateReCaptcha]
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public IActionResult SubmitForm(LoginModel model)
         {
-            var captchaImage = HttpContext.Request.Form["g-recaptcha-response"];
-            if (string.IsNullOrEmpty(captchaImage))
-            {
-                return Content("hello");
-            }
-            var verified = await CheckCaptcha();
-            if (!verified)
-            {
-                return Content("not verify");
-            }
-            if (verified)
-            {
-                return Content("Hello verified");
-            }
-            return View();
+            if (!ModelState.IsValid)
+                return View("Index");
+            TempData["Message"] = "Your form has been sent!";
+            return RedirectToAction("Index");
         }
-        public async Task<bool> CheckCaptcha()
-        {
-            var postData= new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("secret", "6LfD6F4lAAAAAJ-9Mzm-G3TEwyMkBcZPcug-LS0c"),
-                new KeyValuePair<string, string>("response", HttpContext.Request.Form["google-recaptcha-response"])
-            };
-            var client= new HttpClient();
-            var response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(postData));
-            var o = (JObject)JsonConvert.DeserializeObject<JObject>(await response.Content.ReadAsStringAsync());
-            return (bool)o["success"];
-        }
-        
     }
 }

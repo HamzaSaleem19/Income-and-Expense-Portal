@@ -460,8 +460,6 @@
     <body class="font-sans subpixel-antialiased login" id="">
 
     @using AspNetCore.ReCaptcha
-    @Html.ReCaptcha()
-    <recaptcha />
         <div class="container mx-auto">
             <header class="flex items-center justify-between px-8 py-5 font-mont mx-auto">
                 <a href="/" class="flex items-center w-[105px] h-[36px] sm:w-[140px] sm:h-[48px]">
@@ -502,6 +500,13 @@
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                             <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+
+                        @Html.ReCaptcha()
+                        <recaptcha asp-for="Input.captcha" />
+                        <span asp-validation-for="Input.captcha" class="text-danger"></span>
+
+                       
+
                             @*<div data-sitekey="6LfvQ08UAAAAAH9IfiZJbFbmV5J9Q8yNTpHWxyVR" class="g-recaptcha "></div>
                             <noscript>
                                 <div>
