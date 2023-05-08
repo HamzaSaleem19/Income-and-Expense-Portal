@@ -503,7 +503,11 @@
 
                         @Html.ReCaptcha()
                         <recaptcha asp-for="Input.captcha" />
-                        <span asp-validation-for="Input.captcha" class="text-danger"></span>
+                        @*<span asp-validation-for="Input.captcha" class="text-danger"></span>*@
+                       
+                      @*  @Html.ReCaptcha()
+                        <recaptcha asp-for="Input.captcha" />*@
+                        
 
                        
 
