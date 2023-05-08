@@ -38,9 +38,11 @@ namespace Income_and_Expense
           .AddEntityFrameworkStores<ApplicationDbContext>();
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ExpenseService>();
             services.AddScoped<GroupService>();
             services.AddScoped<FriendService>();
+            services.AddScoped<EmailblazorService>();       
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
