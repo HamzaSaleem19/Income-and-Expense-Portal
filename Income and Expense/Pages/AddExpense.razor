@@ -77,8 +77,9 @@
                 border-radius: 30px;
                 background-color: orange;
             }
-            .head:hover{
-                color:red;
+
+            .head:hover {
+                color: red;
             }
         </style>
         @if (expenseList.Count == 0)
@@ -86,7 +87,7 @@
             <div class="card" style="min-height:680px;">
                 <div class="card-header">
                     <span class="span1">All expenses</span>
-                    <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>
+                    @*  <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>*@
                     <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 </div>
                 <div class="card-body">
@@ -115,7 +116,7 @@
             <div class="card">
                 <div class="card-header">
                     <span class="span1">All expenses</span>
-                    <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button" data-toggle="modal" data-target="#exampleModal1">Settle up</button>
+                    @*  <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button" data-toggle="modal" data-target="#exampleModal1">Settle up</button>*@
                     <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 </div>
                 <div class="card-body">
@@ -144,11 +145,13 @@
                                                 <tbody>
                                                     <tr>
                                                         <td colspan="2">
+                                                            <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button" data-toggle="modal" data-target="#exampleModal1">Settle up</button>
                                                             <img src="https://s3.amazonaws.com/splitwise/uploads/category/icon/square_v2/uncategorized/general@2x.png" class="category" title="General" alt="General">
                                                             <h3 class="ml-3">@exp.category</h3>
                                                             <div class="cost">
                                                                 Rs @exp.amount
                                                             </div>
+
                                                             <div class="creation_info">
 
                                                                 Added by <strong>@exp.PaidName</strong> on @exp.dateTime.ToString("MM-dd-yyyy")
@@ -166,7 +169,7 @@
                                                         <td class="left">
                                                             <table class="shares">
                                                                 <tbody>
-                                                                    
+
 
                                                                     @foreach (var item in manageExpenseList)
                                                                     {
@@ -251,8 +254,8 @@
                         <EditForm Model="e" OnValidSubmit="AddData" Context="abc">
                             <div class="form-group">
                                 @*<RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
-                                                Multiple=true AllowClear=true Placeholder="Select Users" SelectAllText="Select All" />*@
-                                                <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
+                                Multiple=true AllowClear=true Placeholder="Select Users" SelectAllText="Select All" />*@
+                                <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@UserList TextProperty="Text" ValueProperty="Value"
                                                 Multiple=true AllowClear=true Placeholder="Select Users" Chips=true SelectAllText="Select All" />
                             </div>
                             <div class="form-group">
@@ -281,17 +284,17 @@
                             <div class="form-group">
                                 <input type="date" class="form-control" id="" placeholder="Enter Date of Activity" @bind="e.DateTime">
                             </div>
-                           @* <div class="form-group">
-                                <select class="form-select form-control" aria-label="Default select example" @bind="@e.Group_Id">
-                                    <option value="0">select Group</option>
-                                    @foreach (var g in GroupList)
-                                    {
-                                        <option value="@g.Value">@g.Text</option>
-                                    }
-                                </select>
+                            @* <div class="form-group">
+                            <select class="form-select form-control" aria-label="Default select example" @bind="@e.Group_Id">
+                            <option value="0">select Group</option>
+                            @foreach (var g in GroupList)
+                            {
+                            <option value="@g.Value">@g.Text</option>
+                            }
+                            </select>
                             </div>*@
-                           @* <div class="form-group">
-                                <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3">Equally</button>
+                            @* <div class="form-group">
+                            <button type="button" class="btn btn-primary" style="width:472px; background-color:#5bc5a7" data-toggle="modal" data-target="#exampleModal3">Equally</button>
                             </div>*@
 
                             <div class="modal-footer">

@@ -177,7 +177,7 @@
                     <div class="form-group">
                         <select class="form-select form-control" aria-label="Default select example" @bind="@e.Paidby">
                             <option value="0">Paid by</option>
-                            @foreach (var u in UserList)
+                            @foreach (var u in UserListG)
                             {
                                 <option value="@u.Value">@u.Text</option>
                             }
