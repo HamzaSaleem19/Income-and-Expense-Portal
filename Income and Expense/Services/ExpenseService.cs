@@ -127,7 +127,7 @@ namespace Income_and_Expense.Services
 
         }
         public async Task<List<ManageExpense>> GetAllManageExpenses()
-        {
+         {
             try
             {
                 AuthenticationState authState = await UserauthenticationStateProvider.GetAuthenticationStateAsync();
