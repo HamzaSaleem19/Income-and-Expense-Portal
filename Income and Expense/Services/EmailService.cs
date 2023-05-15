@@ -33,43 +33,43 @@ namespace Income_and_Expense.Services
 
             var bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = /*"<h1>HTML content of the email</h1>";*/
-               "\"<tr style='background:white;'>\r\n         " +
-               " <td colspan=\"\"3\"\" style=\"\"text-align:left;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:15px;font-size:14px;\"\">\r\n            " +
-               "Hey Mr/Miss ! FYl: Mohsin just recorded a payment to you on Solowise. We appreciate the opportunity to work with you.\r\n     " +
-               "  </td>\r\n " +
-               " </tr>" +
+               "\"<tr style='background:white;'>       " +
+               " <td colspan=\"\"3\"\" style=\"\"text-align:left;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:15px;font-size:14px;\"\">" +
+               "Hey Mr/Miss ! FYl: Mohsin just recorded a payment to you on Solowise. We appreciate the opportunity to work with you." +
+               "</td> " +
+               "</tr>" +
 
-               "<tr style='background:white;'>\r\n        " +
-               "<td colspan=\"3\" style=\"text-align:left;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:25px;font-size:14px;\">\r\n     " +
-               "Below are the details of your services:\r\n                        </td>\r\n                    </tr>" +
+               "<tr style='background:white;'>       " +
+               "<td colspan=\"3\" style=\"text-align:left;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:25px;font-size:14px;\">" +
+               "Below are the details of your services: </td>      </tr>" +
 
-               "<tr style=\"background-image:url('https://imgur.com/2IoqOqm.png');background-size:cover;\">\r\n" +
-               "                        <th style=\"color:white;font-family:arial;padding:17px 0px;\">Group Name</th>\r\n  " +
-               "                      <th style=\"color:white;font-family:arial;padding:17px 0px;\">Balance</th>\r\n  " +
-               "                      <th style=\"color:white;font-family:arial;padding:17px 0px;\">split</th>\r\n " +
-               "                   </tr>" +
-               "<tr style='background:white;'>\r\n                " +
-               "  <th style=\"color:white;font-family:arial;padding:5px 0px;\"></th>\r\n  " +
-               "   <th style=\"color:white;font-family:arial;padding:5px 0px;\"></th>\r\n " +
-               "   <th style=\"color:white;\r\nfont-family:arial;padding:5px 0px;\"></th>\r\n      " +
-               "              </tr>" +
-               "<tr style=\"background-image:url('https://imgur.com/12L2aM0.png');background-size:cover;\">\r\n   " +
-               "                 <th style=\"color:black;font-family:arial;padding:22px 0px;\">#khumaryan#</th>\r\n" +
-               "                    <th style=\"color:black;font-family:arial;padding:22px 0px;\">#2000#</th>\r\n  " +
-               "                  <th style=\"color:black;font-family:arial;padding:22px 0px;\">#food#</th>\r\n   " +
-               "                 </tr>" +
-               "<tr style='background:white;'>\r\n       " +
-               "<td colspan=\"3\" style=\"text-align:center;padding-left:25px;padding-top:25px;font-family:arial;padding-bottom:15px;font-size:\r\n14px;\">\r\n      " +
-               "Let's schedule a meeting that suits your schedule, Contact us at <a style=\"color:blue;text-decoration:underline;\"> 0938-210377 </a> or <a style=\"color:blue;text-decoration:underline;\">mmohsinkhan762@gmail.com </a>\r\n   " +
-               "</td>\r\n        " +
+               "<tr style=\"background-image:url('https://imgur.com/2IoqOqm.png');background-size:cover;\">" +
+               "<th style=\"color:white;font-family:arial;padding:17px 0px;\">Group Name</th>  " +
+               "<th style=\"color:white;font-family:arial;padding:17px 0px;\">Balance</th> " +
+               "<th style=\"color:white;font-family:arial;padding:17px 0px;\">split</th> " +
+               "</tr>" +
+               "<tr style='background:white;'> " +
+               "<th style=\"color:white;font-family:arial;padding:5px 0px;\"></th> " +
+               "<th style=\"color:white;font-family:arial;padding:5px 0px;\"></th> " +
+               "<th style=\"color:white;\r\nfont-family:arial;padding:5px 0px;\"></th>" +
+               "</tr>" +
+               "<tr style=\"background-image:url('https://imgur.com/12L2aM0.png');background-size:cover;\"> " +
+               " <th style=\"color:black;font-family:arial;padding:22px 0px;\">#khumaryan#</th>" +
+               "<th style=\"color:black;font-family:arial;padding:22px 0px;\">#2000#</th> " +
+               "<th style=\"color:black;font-family:arial;padding:22px 0px;\">#food#</th>" +
+               "</tr>" +
+               "<tr style='background:white;'>" +
+               "<td colspan=\"3\" style=\"text-align:center;padding-left:25px;padding-top:25px;font-family:arial;padding-bottom:15px;font-size:14px;\">     " +
+               "Let's schedule a meeting that suits your schedule, Contact us at <a style=\"color:blue;text-decoration:underline;\"> 0938-210377 </a> or <a style=\"color:blue;text-decoration:underline;\">mmohsinkhan762@gmail.com </a>  " +
+               "</td>  " +
                " </tr>" +
-               "<!-- <tr><td colspan=\"3\" style=\"text-align:center;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:15px;font-size:14px;\"> <button style=\"background:hsl(204deg 100% 50%);padding:15px 33px;border-radius:31px;border:0;color:white;font-size:16px;\"> Shedule a Meeting </button>\r\n  " +
-               " </td></tr> -->\r\n       " +
-               "<tr style='background:white;'>\r\n           " +
-               "  <td colspan=\"3\" style=\"text-align:center;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:24px;font-size:12px;\">\r\n " +
-               " If you’re confused about this, just hit reply to send an email to you and figure out what’s going on.\r\n    " +
-               "   </td>\r\n   " +
-               "   </tr>";
+               "<!-- <tr><td colspan=\"3\" style=\"text-align:center;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:15px;font-size:14px;\"> <button style=\"background:hsl(204deg 100% 50%);padding:15px 33px;border-radius:31px;border:0;color:white;font-size:16px;\"> Shedule a Meeting </button> " +
+               " </td></tr> --> " +
+               "<tr style='background:white;'> " +
+               "<td colspan=\"3\" style=\"text-align:center;padding-left:25px;padding-top:10px;font-family:arial;padding-bottom:24px;font-size:12px;\">" +
+               "If you’re confused about this, just hit reply to send an email to you and figure out what’s going on." +
+               "</td> " +
+               "</tr>";
 
             bodyBuilder.TextBody = "Plain text content of the email";
             email.Body = bodyBuilder.ToMessageBody();
