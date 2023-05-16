@@ -99,15 +99,15 @@ namespace Income_and_Expense.Services
                                   }).OrderByDescending(x => x.expenseId).ToList();
                 var managelistleft = (from e in context.Expenses
                                       join em in context.ManageExpenses on e.Expense_Id equals em.Expense_Id
-                                      where e.Paidby != userId && em.User_Id != userId
-
+                                      where e.Paidby != userId  
+                                      group new {e, em} by new {em.User_Id} into g
                                       select new ManageVM
                                       {
-                                          TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == e.Expense_Id && x.User_Id != userId).Select(x => x.Amount).Sum(),
-                                          Paidby = e.Paidby,
-                                          expenseId = e.Expense_Id,
-                                          splitName = em.SplitName,
-                                          amount = e.Amount,
+                                         // TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == g.Select(x=>x.e.Expense_Id).FirstOrDefault() && x.User_Id != userId).Select(x => x.Amount).Sum(),
+                                          Paidby = g.Min(x=> x.e.Paidby),
+                                        // expenseId = g.Select(x=> x.e.Expense_Id).FirstOrDefault(),
+                                        // splitName =  g.Min(x=> ( x.em ==null ? "" : x.em.SplitName)),
+                                          amount = g.Sum(x=>x.e.Amount),
 
                                       }).ToList();
 
@@ -126,7 +126,7 @@ namespace Income_and_Expense.Services
             }
 
         }
-        public async Task<List<ManageExpense>> GetAllManageExpenses()
+        public async Task<List<ManageExpense>> GetAllManageExpensesDashboard()
          {
             try
             {
@@ -143,7 +143,61 @@ namespace Income_and_Expense.Services
                 //                      OwedAmount = mexp.Amount,
 
                 //                  }).ToList();
-                var listofExpenses= await context.ManageExpenses.Where(x => x.User_Id != userId).ToListAsync();
+               // var listofExpenses= await context.ManageExpenses.Where(x => x.User_Id != userId).ToListAsync();
+
+                var listofExpenses =await context.ManageExpenses.Where(x => x.User_Id != userId).GroupBy(x => x.User_Id).Select(
+               x => new ManageExpense()
+               {
+                   User_Id = x.Key,
+                   Amount = x.Sum(x => x.Amount),
+                   Expense_Id = x.Min(x => x.Expense_Id)
+
+
+               }).ToListAsync();
+                //var listofExpenses= await context.ManageExpenses.ToListAsync();
+                foreach (var item in listofExpenses)
+                {
+                    item.SplitName = await GetUserName(item.User_Id);
+                }
+
+
+
+                return listofExpenses.OrderByDescending(x => x.Id).ToList();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+        }
+        public async Task<List<ManageExpense>> GetAllManageExpenses()
+        {
+            try
+            {
+                AuthenticationState authState = await UserauthenticationStateProvider.GetAuthenticationStateAsync();
+                ClaimsPrincipal user = authState.User;
+                var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+                //var manageData = (from exp in context.Expenses
+                //                  join mexp in context.ManageExpenses on exp.Expense_Id equals mexp.Expense_Id
+                //                  where mexp.User_Id == userId
+                //                  select new ManageVM
+                //                  {
+                //                      SplittedName = mexp.SplitName,
+                //                      TotalBalance = exp.Amount, //paidby Total Amount
+                //                      OwedAmount = mexp.Amount,
+
+                //                  }).ToList();
+                 var listofExpenses= await context.ManageExpenses.Where(x => x.User_Id != userId).ToListAsync();
+
+               // var listofExpenses = await context.ManageExpenses.Where(x => x.User_Id != userId).GroupBy(x => x.User_Id).Select(
+               //x => new ManageExpense()
+               //{
+               //    User_Id = x.Key,
+               //    Amount = x.Sum(x => x.Amount),
+               //    Expense_Id = x.Min(x => x.Expense_Id)
+
+
+               //}).ToListAsync();
                 //var listofExpenses= await context.ManageExpenses.ToListAsync();
                 foreach (var item in listofExpenses)
                 {

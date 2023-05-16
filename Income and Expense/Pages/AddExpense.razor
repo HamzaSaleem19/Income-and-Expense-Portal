@@ -81,16 +81,22 @@
             .head:hover {
                 color: red;
             }
+            .delete1:hover{
+                /*background-color:red;*/
+                border-bottom:5px solid red;
+            }
         </style>
         @if (expenseList.Count == 0)
         {
-            <div class="card" style="min-height:680px;">
-                <div class="card-header">
-                    <span class="span1">All expenses</span>
-                    @*  <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>*@
-                    <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
+                <div class="row p-2 mb-2" style="background-color:rgba(0,0,0,.03); height:60px;">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <span class="span1">All expenses</span>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm6">
+                        <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
+                    </div>
+
                 </div>
-                <div class="card-body">
                     <div id="dashboard_balances">
                         <div style="padding: 10px 15px; position: relative; margin: 20px -15px">
 
@@ -108,19 +114,20 @@
 
                         </div>
                     </div>
-                </div>
-            </div>
         }
         else
         {
-            <div class="card">
-                <div class="card-header">
+            <div class="row p-2 mb-2" style="background-color:rgba(0,0,0,.03); height:60px;">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <span class="span1">All expenses</span>
-                    @*  <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button" data-toggle="modal" data-target="#exampleModal1">Settle up</button>*@
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm6">
                     <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 </div>
-                <div class="card-body">
-                    @{
+
+            </div>
+            <div>
+                    @code{
                         int newcollapsecount = 0;
                         string parentcollapse = "#collapseThree";
                         string childcollapse = "collapseThree";
@@ -131,8 +138,8 @@
                         parentcollapse = parentcollapse + newcollapsecount;
                         childcollapse = childcollapse + newcollapsecount;
                         <div id="accordion">
-                            <div class="card">
-                                <div class="card-header d-flex bg-info text-white collapsed" style="height:60px" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
+                            <div class="card c1">
+                                <div class="card-header d-flex bg-info text-white collapsed" style="height:60px;" id="headingThree" data-toggle="collapse" data-target="@parentcollapse" aria-expanded="false" aria-controls="collapseThree">
                                     <div class="mr-auto">@exp.dateTime.ToString("MM-dd-yyyy")<br /> @exp.category</div>
                                     <div>you paid<br /> @exp.amount</div>
                                     <div class="ml-5 mr-5">you lent<br /> @Math.Round( @exp.lent)</div>
@@ -235,7 +242,6 @@
                             </div>
                         </div>
                     }
-                </div>
             </div>
         }
 
