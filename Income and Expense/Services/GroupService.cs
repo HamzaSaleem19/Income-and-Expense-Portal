@@ -42,9 +42,9 @@ namespace Income_and_Expense.Services
                         UserGroup ug = new();
                         ug.Groups = groups;
                         ug.User_Id = item;
-                        var userEmail = GetEmail(item);
+                        var userEmail =await GetEmail(item);
                         EmailDTO emailDto = new EmailDTO();
-                        emailDto.To = userEmail.Result.ToString();
+                        emailDto.To = userEmail;
                         _emailblazorService.SendEmail(emailDto);
                         groupsList.Add(ug);
                     }
