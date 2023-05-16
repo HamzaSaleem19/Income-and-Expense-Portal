@@ -118,10 +118,56 @@
         </div>
         }
         else{
-        <div class="card min-vh-100">
+            <div class="row p-2" style="background-color:rgba(0,0,0,.03);">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 p-2">
+                    <span class="span1">Dashboard</span>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 p-2">
+                    <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 border-right border-top p-1">
+                    <p style="margin:0; padding:0;">total balance</p>
+                    <p class="paragraphColor" style="margin:0; padding:0;">+Rs @Math.Round( @ManageExpenseList.Sum(x => x.Amount))</p>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 border-right border-top p-1">
+                    <p style="margin:0; padding:0;">you owe</p>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 border-top p-1">
+                    <p style="margin:0; padding:0;">you are owed</p>
+                    <p class="paragraphColor">Rs @expenseList.Sum(x => x.amount)</p>
+                </div>
+            </div>
+            @*<div class="row p-2 border-top" style="background-color:rgba(0,0,0,.03); height:60px;">
+                
+                
+                
+
+            </div>*@
+            <div class="row p-2">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 border-right">
+                    <h5>YOU OWE</h5>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <h5 style="text-align:right">YOU ARE OWED</h5>
+                    @foreach (var a in ManageExpenseList)
+                    {
+                        <div class="hvr container mb-3">
+                            <div class="row">
+                                <div class="col-xs">
+                                    <img class="round" src="user-128.png" />
+                                </div>
+                                <div class="col-xs ml-5">
+                                    <span><strong style="font-size:20px">@a.SplitName</strong></span><br /><span style="color:#5bc5a7"> Owes Rs @Math.Round(@a.Amount)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        @*<div class="card min-vh-100">
             <div class="card-header">
                 <span class="span1">Dashboard</span>
-           @*     <button class="btn1 btn text-white float-right" style="background-color:#5bc5a7" type="button">Settle up</button>*@
                 <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal">Add Expense</button>
                 <hr style="margin-top:10px" />
 
@@ -143,19 +189,7 @@
                 <div class="row">
                     <div class="col-6 border-right">
                         <h5>YOU OWE</h5>
-                            @*@foreach (var a in expenseList)
-                            {
-                                <div class="hvr container mb-3">
-                                    <div class="row">
-                                        <div class="col-xs">
-                                            <img class="round" src="user-128.png" />
-                                        </div>
-                                        <div class="col-xs ml-5">
-                                            <span><strong style="font-size:20px">@a.SplittedName</strong></span><br /><span style="color:#5bc5a7">you owe Rs @Math.Round(@a.amount)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }*@
+                            
                     </div>
                     <div class="col-6 border-left">
                         <h5 style="text-align:right">YOU ARE OWED</h5>
@@ -176,7 +210,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>*@
         }
 
 

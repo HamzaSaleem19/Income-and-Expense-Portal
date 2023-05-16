@@ -4,15 +4,14 @@
 @inject NavigationManager NavigationManager
 @using Income_and_Expense.Helpers
 
-<div class="content">
-    <div class="card">
-        <div class="card-header">
-            <span style="font-size:30px">Groups</span>
-            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal">Add Group </button>
-            <button class="hover2 btn text-white float-right mr-2" style="background-color:#ff652f" type="button" data-toggle="modal" data-target="#exampleModal1">Add Group Expense</button>
+<div class="row border-bottom mb-2" style="background-color:rgba(0,0,0,.03);">
+    <span style="font-size:30px; padding:10px;">Groups</span>
+    <button class="hover2 btn text-white float-right mr-2 mt-3" style="background-color:#ff652f;height:40px; margin-left:200px;" type="button" data-toggle="modal" data-target="#exampleModal1">Add Group Expense</button>
+    <button type="button" class="btn btn-info mt-3" data-toggle="modal" data-target="#exampleModal" style="height:40px;">Add Group </button>
 
-        </div>
-        <div class="card-body">
+</div>
+
+        <div class="row">
             @*<style>
             img {
             border-radius: 30px;
@@ -70,8 +69,7 @@
                 </table>
             }
         </div>
-    </div>
-</div>
+
 
 <!--Modal-->
 
