@@ -1,0 +1,124 @@
+﻿@page "/Invitefriends"
+
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <span style="font-size:30px">Add Friends</span>
+            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#exampleModal">Invite friend </button>
+        </div>
+        <div class="card-body">
+            @*<style>
+            img {
+            border-radius: 30px;
+            }
+            </style>*@
+
+
+          @*  @if (groupobj is null)
+            {
+                <p><em>Loading...!</em></p>
+            }
+            else*@
+            {
+                <table class="table table-striped table-hover">
+                    <thead class="bg-info text-light">
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Users</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var sNo = 0;
+                        }
+                       @* @foreach (var a in groupobj)*@
+                        {
+                            sNo++;
+                            @*<tr>
+                                <td>@sNo</td>
+                                <td>@a.Group_Name</td>
+                                <td>@a.Group_Type</td>
+
+                                <td>
+                                    @foreach (var item in userGroups)
+                                    {
+                                        @if (a.Group_Id == item.Group_Id)
+                                        {
+                                            <p>@item.UserName</p>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <span>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal" @onclick="()=>UpdateGroup(a.Group_Id)"><i class="fa fa-edit"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm" @onclick="()=>DeleteGroup(a.Group_Id)"> <i class="fa fa-trash"></i> </button>
+                                    </span>
+                                </td>
+                            </tr>*@
+                        }
+
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<!--Modal-->
+
+@*<div class="modal fade right" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="exampleModalLabel">@(g.Group_Id == 0 ? "Start a New Group" : "Edit Group")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="@cancel">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="g" OnValidSubmit="@AddData">
+                    <DataAnnotationsValidator />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Name" class="control-label">Group Name</label>
+                                <input form="Name" class="form-control" placeholder="Group Name" @bind="g.Group_Name" />
+                                <ValidationMessage For="@(()=> g.Group_Name)" />
+                                <br />
+                                <div class="form-group">
+                                    <label>Group Type</label>
+                                    <div>
+                                        <select DefaultText="Select Type" class="form-control" @bind="g.Group_Type">
+                                            <option disabled>Select Type</option>
+                                            @foreach (var item in EnumHelper.GetKeyValuesFromEnum(typeof(GroupType)))
+                                            {
+                                                <option value="@item.Key">@item.Value</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Group user</label>
+                                    <div>
+                                        <RadzenDropDown class="form-control" @bind-Value=@valuess Data=@grouplist TextProperty="Text" ValueProperty="Value"
+                                                        Multiple=true AllowClear=true Placeholder="Select Users" Chips=true
+                                                        MaxSelectedLabels="3" SelectAllText="Select all" SelectedItemsText="item selected" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-success ml-3" value="Save" />
+                        <input type="button" class="btn btn-secondary float-md-right ml-2" @onclick="@cancel" data-dismiss="modal" value="Cancel" />
+
+                    </div>
+                </EditForm>
+
+            </div>
+        </div>
+    </div>
+</div>
+*@
