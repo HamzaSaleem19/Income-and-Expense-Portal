@@ -45,6 +45,7 @@ namespace Income_and_Expense.Apis.Controllers
         [HttpPost]
         public async Task<IActionResult> AddExpense([FromBody] Expense expense)
         {
+            expense.Lent = Math.Round(expense.Amount - (expense.Amount / expense.UserIds.Count()));
             expense.UserIds = valuess.ToArray();
             await context.Expenses.AddAsync(expense);
             List<ManageExpense> ListOfmanageExpense = new();
@@ -54,11 +55,14 @@ namespace Income_and_Expense.Apis.Controllers
                 manageExpense.User_Id = item;
                 manageExpense.Expense = expense;
                 manageExpense.Amount = expense.Amount / expense.UserIds.Count();
+                //expense.Lent = expense.Amount - manageExpense.Amount;
                 ListOfmanageExpense.Add(manageExpense);
+                //var lent = expense.Amount - manageExpense.Amount;
             }
+
             await context.ManageExpenses.AddRangeAsync(ListOfmanageExpense);
             await context.SaveChangesAsync();
-            return Ok(expense);
+            return Ok(true);
         }
 
     }
