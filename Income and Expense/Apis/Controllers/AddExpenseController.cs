@@ -62,7 +62,7 @@ namespace Income_and_Expense.Apis.Controllers
 
             await context.ManageExpenses.AddRangeAsync(ListOfmanageExpense);
             await context.SaveChangesAsync();
-            return Ok(true);
+            return Ok("Expense added Sucessfully!");
         }
 
     }
