@@ -1,12 +1,15 @@
 ﻿using Income_and_Expense.Data;
 using Income_and_Expense.Data.Models;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -64,6 +67,19 @@ namespace Income_and_Expense.Apis.Controllers
             await context.SaveChangesAsync();
             return Ok("Expense added Sucessfully!");
         }
+        // Get all users
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var userslist = _userManager.Users.Select(x =>
+                 new SelectListItem()
+                 {
+                     Value = x.Id,
+                     Text = x.FirstName + " " + x.LastName
+                 });
+            return Ok(userslist);
+        }
+
 
     }
 
