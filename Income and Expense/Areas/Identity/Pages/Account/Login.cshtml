@@ -469,7 +469,6 @@
     </head>
 
 
-
     <body class="font-sans subpixel-antialiased login" id="">
 
     @using AspNetCore.ReCaptcha
@@ -500,17 +499,17 @@
                         <div class="text-3xl font-mont mb-4">Log in
         </div>
                         <form id="account" method="post">
-                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
                             <input type="hidden" name="authenticity_token" value="0lM1x2K6uO_79M4IHbzvngE8SbDlB1Y7yFd415sTBKdkbyE6xyYVr-ylI2K429vbxLykfhTw5yB1sQa6Pyxosg" autocomplete="off"/>
                             <label for="credentials_identity">Email address</label>
                             <div class="input mb-4">
                                 <input asp-for="Input.Email" type="email" class="form-control  form-control-lg" placeholder="Email"/>
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            @*<span asp-validation-for="Input.Email" class="text-danger" style="color:red"></span>*@
                             </div>
                             <label for="credentials_password">Password</label>
                             <div class="input mb-4">
                                 <input asp-for="Input.Password" type="password" class="form-control   form-control-lg" placeholder="Password"/>
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            @*<span asp-validation-for="Input.Password" class="text-danger" style="color:red"></span>*@
                             </div>
                             
                             

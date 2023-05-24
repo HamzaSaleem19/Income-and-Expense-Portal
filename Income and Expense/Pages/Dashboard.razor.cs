@@ -23,7 +23,7 @@ namespace Income_and_Expense.Pages
         Expense e = new();
         public IEnumerable<string> valuess = new string[] { };
         public List<ManageVM> expenseList = new();
-        public List<ManageExpense> ManageExpenseList = new();
+        public ParentManageExpense ManageExpenseList = new();
         public List<ManageExpense> ManageExpenseSum = new();
         public List<SelectListItem> UserList = new();
         public List<SelectListItem> GroupList = new();

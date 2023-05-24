@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Income_and_Expense.Data.Models
@@ -18,4 +19,9 @@ namespace Income_and_Expense.Data.Models
         [NotMapped]
         public string SplitName { get; set; }
     }
-}
+    public class ParentManageExpense
+    {
+        public List<ManageExpense> listofExpenses { get; set; } = new();
+        public List<ManageExpense> PaidbyOthers { get; set; }=new();
+    }
+    }

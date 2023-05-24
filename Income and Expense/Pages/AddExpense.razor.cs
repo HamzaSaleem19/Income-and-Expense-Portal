@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace Income_and_Expense.Pages
 {
     public partial class AddExpense : ComponentBase
     {
-
         protected bool ShowConfirmation { get; set; }
 
         [Parameter]
@@ -56,7 +56,6 @@ namespace Income_and_Expense.Pages
         public List<ManageExpense> manageExpenseList = new();
         public List<SelectListItem> UserList = new();
         public List<SelectListItem> GroupList = new();
-        private Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager { get; set; }
         protected override async Task OnInitializedAsync()
         {
             manageExpenseList = await expenseService.GetAllManageExpenses();
@@ -86,13 +85,21 @@ namespace Income_and_Expense.Pages
             var username =  (user == null ? "" : user.FirstName + " " + user.LastName);
             return username;
         }
-
+        private async Task ShowDeleteAlert()
+        {
+            string message = "Are you sure you want to delete this item?";
+            await JSRuntime.InvokeVoidAsync("alert", message);
+        }
         protected async void DeleteExpense(int Expense_Id)
         {
             try
             {
-                await expenseService.DeleteExpenseAsync(Expense_Id);
-                NavigationManager.NavigateTo("AllExpenses", true);
+                bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+                if (confirmed)
+                {
+                    await expenseService.DeleteExpenseAsync(Expense_Id);
+                    NavigationManager.NavigateTo("AllExpenses", true);
+                }
             }
             catch (Exception ex)
             {

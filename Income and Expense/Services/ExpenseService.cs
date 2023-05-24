@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
+using Org.BouncyCastle.Pqc.Crypto.Frodo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,6 +53,67 @@ namespace Income_and_Expense.Services
         }
         public async Task<bool> AddExpense(Expense expense)
         {
+
+            var ManagePaidBy = await context.Expenses.Where(x => x.Paidby == expense.Paidby).ToListAsync();
+            if (ManagePaidBy.Any())
+            {
+                foreach(var item in ManagePaidBy)
+                {
+                    var UpdatedPaidBy = await context.ManageExpenses.Where(x => x.Expense_Id == item.Expense_Id && x.Amount > 0 && x.User_Id != expense.Paidby).ToListAsync();
+                    if (UpdatedPaidBy.Any())
+                    {
+                        foreach (var itemm in UpdatedPaidBy)
+                        {
+                            var checkAmount = from a in context.Expenses
+                                              join m in context.ManageExpenses on a.Expense_Id equals m.Expense_Id
+                                              where a.Paidby == itemm.User_Id && m.User_Id != itemm.User_Id
+                                              select m;
+                            foreach (var item1 in checkAmount)
+                            {
+                                item1.Amount = item1.Amount - (expense.Amount / expense.UserIds.Count());
+
+                            }
+                        }
+                    }
+                   
+                }
+            }
+            else
+            {
+
+                var UpdatedPaidBy = await context.ManageExpenses.Where(x =>  x.Amount > 0 && x.User_Id == expense.Paidby).ToListAsync();
+                if (UpdatedPaidBy.Any())
+                {
+                    foreach (var itemm in UpdatedPaidBy)
+                    {
+                        //var checkAmount = from a in context.Expenses
+                        //                  join m in context.ManageExpenses on a.Expense_Id equals m.Expense_Id
+                        //                  where  m.User_Id != itemm.User_Id
+                        //                  select m;
+
+
+                         
+                           var checkPaidby = await context.Expenses.Where(x=> x.Expense_Id == itemm.Expense_Id).FirstOrDefaultAsync();
+
+                           var managePaidby = await context.ManageExpenses.Where(x=> x.User_Id == checkPaidby.Paidby && x.User_Id != expense.Paidby).FirstOrDefaultAsync();
+                        if(managePaidby.Amount - (expense.Amount / expense.UserIds.Count()) > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            
+                        }
+                        managePaidby.Amount = managePaidby.Amount - (expense.Amount / expense.UserIds.Count());
+
+                         
+                    }
+                }
+            }
+           
+
+
+
             expense.Lent = Math.Round( expense.Amount - (expense.Amount / expense.UserIds.Count()));
 
             await context.Expenses.AddAsync(expense);
@@ -97,19 +160,19 @@ namespace Income_and_Expense.Services
 
 
                                   }).OrderByDescending(x => x.expenseId).ToList();
-                var managelistleft = (from e in context.Expenses
-                                      join em in context.ManageExpenses on e.Expense_Id equals em.Expense_Id
-                                      where e.Paidby != userId  
-                                      group new {e, em} by new {em.User_Id} into g
-                                      select new ManageVM
-                                      {
-                                         // TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == g.Select(x=>x.e.Expense_Id).FirstOrDefault() && x.User_Id != userId).Select(x => x.Amount).Sum(),
-                                          Paidby = g.Min(x=> x.e.Paidby),
-                                        // expenseId = g.Select(x=> x.e.Expense_Id).FirstOrDefault(),
-                                        // splitName =  g.Min(x=> ( x.em ==null ? "" : x.em.SplitName)),
-                                          amount = g.Sum(x=>x.e.Amount),
+                //var managelistleft = (from e in context.Expenses
+                //                      join em in context.ManageExpenses on e.Expense_Id equals em.Expense_Id
+                //                      where e.Paidby != userId  
+                //                      group new {e, em} by new {em.User_Id} into g
+                //                      select new ManageVM
+                //                      {
+                //                         // TotalBalance = context.ManageExpenses.Where(x => x.Expense_Id == g.Select(x=>x.e.Expense_Id).FirstOrDefault() && x.User_Id != userId).Select(x => x.Amount).Sum(),
+                //                          Paidby = g.Min(x=> x.e.Paidby),
+                //                        // expenseId = g.Select(x=> x.e.Expense_Id).FirstOrDefault(),
+                //                        // splitName =  g.Min(x=> ( x.em ==null ? "" : x.em.SplitName)),
+                //                          amount = g.Sum(x=>x.e.Amount),
 
-                                      }).ToList();
+                //                      }).ToList();
 
                 foreach (var item in managelist)
                 {
@@ -126,43 +189,59 @@ namespace Income_and_Expense.Services
             }
 
         }
-        public async Task<List<ManageExpense>> GetAllManageExpensesDashboard()
+        public async Task<ParentManageExpense> GetAllManageExpensesDashboard()
          {
             try
             {
-                AuthenticationState authState = await UserauthenticationStateProvider.GetAuthenticationStateAsync();
+
+                ParentManageExpense parentManageExpense =new ();
+               AuthenticationState authState = await UserauthenticationStateProvider.GetAuthenticationStateAsync();
                 ClaimsPrincipal user = authState.User;
                 var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
-                //var manageData = (from exp in context.Expenses
-                //                  join mexp in context.ManageExpenses on exp.Expense_Id equals mexp.Expense_Id
-                //                  where mexp.User_Id == userId
-                //                  select new ManageVM
-                //                  {
-                //                      SplittedName = mexp.SplitName,
-                //                      TotalBalance = exp.Amount, //paidby Total Amount
-                //                      OwedAmount = mexp.Amount,
+                // Payment given by me(Current User)
+                parentManageExpense.listofExpenses = await (from exp in context.Expenses
+                                  join mexp in context.ManageExpenses on exp.Expense_Id equals mexp.Expense_Id
+                                  where mexp.User_Id != userId && exp.Paidby == userId
+                                  group mexp by  mexp.User_Id  into g
+                                  select new ManageExpense
+                                  {
+                                      User_Id = g.Key,
+                                      Amount = g.Sum(x => x.Amount),
+                                      Expense_Id = g.Min(x => x.Expense_Id)
+                                  }).ToListAsync();
 
-                //                  }).ToList();
-               // var listofExpenses= await context.ManageExpenses.Where(x => x.User_Id != userId).ToListAsync();
+                // Payment return back(Other Users)
+                parentManageExpense.PaidbyOthers = await (from exp in context.Expenses
+                                  join mexp in context.ManageExpenses on exp.Expense_Id equals mexp.Expense_Id
+                                  where mexp.User_Id != userId && exp.Paidby != userId && exp.Paidby == mexp.User_Id
+                                  group mexp by  mexp.User_Id  into g
+                                  select new ManageExpense
+                                  {
+                                      User_Id = g.Key,
+                                      Amount = g.Sum(x => x.Amount),
+                                      Expense_Id = g.Min(x => x.Expense_Id)
+                                  }).ToListAsync();
+                // var listofExpenses= await context.ManageExpenses.Where(x => x.User_Id != userId).ToListAsync();
 
-                var listofExpenses =await context.ManageExpenses.Where(x => x.User_Id != userId).GroupBy(x => x.User_Id).Select(
-               x => new ManageExpense()
-               {
-                   User_Id = x.Key,
-                   Amount = x.Sum(x => x.Amount),
-                   Expense_Id = x.Min(x => x.Expense_Id)
-
-
-               }).ToListAsync();
+               // var listofExpenses =await context.ManageExpenses.Where(x => x.User_Id != userId).GroupBy(x => x.User_Id).Select(
+               //x => new ManageExpense()
+               //{
+               //    User_Id = x.Key,
+               //    Amount = x.Sum(x => x.Amount),
+               //    Expense_Id = x.Min(x => x.Expense_Id)
+               //}).ToListAsync();
                 //var listofExpenses= await context.ManageExpenses.ToListAsync();
-                foreach (var item in listofExpenses)
+                foreach (var item in parentManageExpense.listofExpenses)
+                {
+                    item.SplitName = await GetUserName(item.User_Id);
+                }
+                foreach (var item in parentManageExpense.PaidbyOthers)
                 {
                     item.SplitName = await GetUserName(item.User_Id);
                 }
 
 
-
-                return listofExpenses.OrderByDescending(x => x.Id).ToList();
+                return parentManageExpense;
             }
             catch (Exception e)
             {
