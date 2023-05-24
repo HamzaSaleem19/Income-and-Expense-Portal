@@ -50,7 +50,7 @@
             }
         </style>
 
-        @if(ManageExpenseList.Count == 0)
+        @if (ManageExpenseList.listofExpenses.Count == 0 && ManageExpenseList.PaidbyOthers.Count == 0)
         {
                 <div class="row p-2 border-bottom" style="background-color:rgba(0,0,0,.03);">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 p-2">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 border-right border-top p-1">
                     <p style="margin:0; padding:0;">total balance</p>
-                    <p class="paragraphColor" style="margin:0; padding:0;">+Rs @Math.Round( @ManageExpenseList.Sum(x => x.Amount))</p>
+                    <p class="paragraphColor" style="margin:0; padding:0;">+Rs @Math.Round( @ManageExpenseList.listofExpenses.Sum(x => x.Amount))</p>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 border-right border-top p-1">
                     <p style="margin:0; padding:0;">you owe</p>
@@ -109,10 +109,23 @@
             <div class="row p-2">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 border-right">
                     <h5>YOU OWE</h5>
+                    @foreach (var a in ManageExpenseList.PaidbyOthers)
+                    {
+                        <div class="hvr container mb-3">
+                            <div class="row">
+                                <div class="col-xs">
+                                    <img class="round" src="user-128.png" />
+                                </div>
+                                <div class="col-xs ml-5">
+                                    <span><strong style="font-size:20px;">@a.SplitName</strong></span><br /><span style="color:#ff652f">you owe Rs @Math.Round(@a.Amount)</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <h5 style="text-align:right">YOU ARE OWED</h5>
-                    @foreach (var a in ManageExpenseList)
+                    @foreach (var a in ManageExpenseList.listofExpenses)
                     {
                         <div class="hvr container mb-3">
                             <div class="row">
